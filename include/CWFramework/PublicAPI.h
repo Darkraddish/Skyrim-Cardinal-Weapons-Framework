@@ -7,7 +7,7 @@
 #include "ProgressionEngine.h"
 #include "AbilityEffectEngine.h"
 #include "ContentValidationEngine.h"
-#include "ConstellationUIManager.h"
+#include "CardinalTreeUIManager.h"
 #include "ExpansionManager.h"
 #include "AnimationCosmeticEngine.h"
 #include <string>
@@ -234,20 +234,35 @@ namespace CWFramework
             return ContentValidationEngine::GetInstance().IsItemAvailable(itemId);
         }
 
-        // Custom Constellation UI Framework Shortcuts
+        // Custom Flat SkyUI Cardinal Tree UI Framework Shortcuts
         static DashboardViewModel GetDashboardView()
         {
-            return ConstellationUIManager::GetInstance().GetDashboardView();
+            return CardinalTreeUIManager::GetInstance().GetDashboardView();
         }
 
-        static ConstellationNodeViewModel GetNodeDetailsView(const std::string& nodeId)
+        static CardinalTreeNodeViewModel GetNodeDetailsView(const std::string& nodeId)
         {
-            return ConstellationUIManager::GetInstance().GetNodeDetailsView(nodeId);
+            return CardinalTreeUIManager::GetInstance().GetNodeDetailsView(nodeId);
+        }
+
+        static FlatProgressionTreeViewModel GetFlatProgressionTreeForSeries(const std::string& seriesId)
+        {
+            return CardinalTreeUIManager::GetInstance().GetFlatProgressionTreeForSeries(seriesId);
+        }
+
+        static StandardizedInfoPanelViewModel GetStandardizedInfoPanel(const std::string& nodeId)
+        {
+            return CardinalTreeUIManager::GetInstance().GetStandardizedInfoPanel(nodeId);
+        }
+
+        static SkyUIIntegrationConfig GetSkyUIConfig()
+        {
+            return CardinalTreeUIManager::GetInstance().GetSkyUIConfig();
         }
 
         static bool SelectAndUnlockNode(const std::string& nodeId)
         {
-            return ConstellationUIManager::GetInstance().SelectAndUnlockNode(nodeId);
+            return CardinalTreeUIManager::GetInstance().SelectAndUnlockNode(nodeId);
         }
 
         // Expansion Support & Companion Hooks Shortcuts

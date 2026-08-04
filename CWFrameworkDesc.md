@@ -220,19 +220,21 @@ This second check is deliberately allowed a brief moment to run before a selecti
 
 # User Interface
 
-The interface is the player-facing layer of the entire framework — the way progression is actually seen and understood, not just tracked internally. It replaces Skyrim's perk menu entirely, while remaining fully independent from it.
+The interface is the player-facing layer of the entire framework — the way progression is actually seen and understood, not just tracked internally. It replaces Skyrim's perk menu with a **Flat 2D Split-Screen Interface using SkyUI as a mandatory requirement**.
 
-It's built around a few core pieces:
+The interface divides the screen into two clean panels:
 
-* **Weapon Overview** — a dashboard showing the player's current Weapon Type, Series, Form, and overall progression at a glance. This answers "what is my weapon right now, and how far has it evolved?"
-* **The Progression Web** — the radial node map itself (see above), where the player explores and selects nodes.
-* **Node Selection** — selecting a node shows what it is, what it unlocks, what it evolves into, and whether it's currently available. This is where the player decides which direction to grow in.
-* **Requirement Display** — every node's conditions are shown clearly, along with live progress toward each one, so the player always understands exactly what's missing rather than guessing.
-* **Ability Display** — each granted ability is shown with its name, effect, activation type, and scope, so the player understands not just what they have, but what it actually does and when it applies.
+* **Left Side: Flat Progression Tree** — a 2D planar node map where the player navigates nodes and branching paths without 3D camera slanting or perspective distortion.
+* **Right Side: Standardized Info Panel Template** — a uniform details template shared across **all weapon types** (Sword, Shield, Bow, Spear), containing:
+  - **Overview Header**: Weapon Type, Active Series, Current Form name & icon, growth statistics (Level, Refinement, Mastery, Effective Damage/Armor).
+  - **Selected Node Metadata**: Node ID, Name, Description, Type, and State.
+  - **Requirement Display**: Every node's conditions shown with live completion progress (`7/10`).
+  - **Ability & Effect Display**: Each granted ability shown with its name, description, activation type (Equip, Passive, Active, Master), and scope (Form-bound vs Permanent).
+  - **Interaction Footer**: Context-aware key hints (`[E] Unlock Node`, `[Tab] Back`).
 
-Every node is always in one of three states — **Locked**, **Unlockable**, or **Unlocked** — and the interface must make that state unmistakable at a glance.
+Every node is always in one of three states — **Locked**, **Unlockable**, or **Unlocked** — and the interface makes that state unmistakable at a glance.
 
-Visually, the interface leans into a dark, mystical, arcane aesthetic with glowing connections radiating outward from the center — familiar in tone to a perk-style UI, but built entirely from scratch, sharing no logic or data with Skyrim's own perk system. The goal is for the player to feel that their weapon is alive, that their choices matter, and that progression is always visible — not just a menu, but the face of the weapon's evolution.
+Visually, the interface adheres strictly to SkyUI menu standards, featuring flat 2D paneling, crisp margins, and standard Skyrim UI typography. The goal is for the player to feel that their weapon is alive, that their choices matter, and that progression is always visible — blending smoothly with the game's interface while sharing no logic or data with Skyrim's vanilla perk system.
 
 The framework intentionally avoids making gameplay decisions.
 

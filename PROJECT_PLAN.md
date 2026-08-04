@@ -20,7 +20,7 @@
 | **Phase 5** | Progression & Sub-System Engines | `[x] Completed` | Evolution, Level, Refinement, & Mastery engines |
 | **Phase 6** | Ability & Effect Engine | `[x] Completed` | Equip, Active, Passive, & Master skill handlers |
 | **Phase 7** | Content Validation Engine | `[x] Completed` | Two-stage load/runtime integrity & failure isolation |
-| **Phase 8** | Custom Constellation UI Framework | `[x] Completed` | Standalone radial constellation menu & dashboards |
+| **Phase 8** | Custom Flat SkyUI Cardinal Tree UI | `[x] Completed` | Flat 2D split-screen UI (Left Cardinal Tree, Right Standardized Info Panel, SkyUI integration) |
 | **Phase 9** | Reference Content Pack | `[x] Completed` | First fully playable weapon pack (Sword, Shield, Bow, Spear) |
 | **Phase 10** | Expansion Support & Companion Hooks | `[x] Completed` | Series & Weapon Type expansion data pipelines |
 | **Phase 11** | Animation & Cosmetic Integration | `[x] Completed` | OAR/DAR animation hooks & visual transformation pipeline |
@@ -150,20 +150,21 @@
 
 ---
 
-### Phase 8: Custom Constellation UI Framework
+### Phase 8: Custom Flat SkyUI Cardinal Tree UI Framework
 **Status**: `[x] Completed`
 
-* **Goal**: Deliver a standalone, perk-style radial constellation interface.
+* **Goal**: Deliver a standalone, Flat 2D split-screen interface using SkyUI as a core requirement (Left Progression Tree + Right Standardized Info Panel Template across all weapon types).
 * **Key Guidelines & Rules**:
-  * Completely independent of vanilla Skyrim perk menu logic.
-  * Dark, mystical, arcane aesthetic with glowing constellation connections.
+  * Mandatory integration with SkyUI design standards (flat 2D layout, non-slanted, standard margins & fonts).
+  * Left pane: Flat 2D Progression Tree with clear parent-child dependencies and state markers.
+  * Right pane: Standardized Information Panel using identical card template across all weapon types (Overview Header, Selected Node Metadata, Unlock Requirements Tracker, Granted Abilities List, Action Footer).
 * **Tasks**:
-  - [x] Construct custom UI framework overlay.
-  - [x] Build **Weapon Overview Dashboard** (Weapon Type, Series, Form, growth stats).
-  - [x] Build **Radial Progression Constellation Map** (node network, spatial clustering, path lines, Locked/Unlockable/Unlocked states).
-  - [x] Build **Node Selection & Interaction Layer** (decision-making, path previews).
-  - [x] Build **Requirement Display Panel** (exact condition tracking & live progress).
-  - [x] Build **Ability Display Panel** (name, description, activation type, scope).
+  - [x] Construct SkyUI-compliant flat 2D split-screen framework overlay.
+  - [x] Build **Left Pane: Flat Progression Tree** (2D node graph, state badges, parent branch links).
+  - [x] Build **Right Pane: Standardized Info Panel Template** (Overview Header, Growth Stats, Selected Node Metadata).
+  - [x] Build **Standardized Requirement Tracker** (live condition progress & counters).
+  - [x] Build **Standardized Ability & Effect Panel** (activation type, scope, permanent vs form-bound status).
+  - [x] Integrate **SkyUI Requirement & Configuration Pipeline** (`SkyUIIntegrationConfig`).
 
 ---
 

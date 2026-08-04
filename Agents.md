@@ -187,11 +187,12 @@ It answers:
 
 ---
 
-### Progression Constellation
+### Progression Tree & Split Screen Layout
 
-This is the core visual system of the framework.
+The UI uses a **Flat 2D Split-Screen Architecture** designed to blend seamlessly with **SkyUI**:
 
-Instead of a linear skill tree, progression is displayed as a **constellation-style node network inspired by Skyrim’s perk constellations, but fully system-driven and data-defined**.
+* **Left Side (Progression Tree)**: Displayed as a flat 2D node network (non-slanted perspective) where nodes and connections are laid out cleanly in a 2D planar view.
+* **Right Side (Standardized Info Panel)**: Renders a uniform template across **all weapon types** (Sword, Shield, Bow, Spear, etc.).
 
 Each node represents:
 
@@ -201,24 +202,18 @@ Each node represents:
 * A new ability
 * A branching evolution path
 
-Nodes are arranged in a **spatial constellation layout**, where position, clustering, and visual grouping communicate progression depth and category (rather than a strict tree hierarchy).
+The left pane renders:
 
-Nodes are connected to show relationships, such as:
+* Locked / Unlockable / Unlocked node states
+* Node connection branches and parent dependencies
+* Clear visual markers for the active evolution path
 
-* What unlocks what
-* What paths diverge
-* What choices lock or unlock future forms
-* What nodes belong to the same evolutionary “star cluster” (series grouping)
-
-The UI must support:
-
-* Locked / unlocked / in-progress states
-* Requirement preview on hover/selection
-* Progress tracking per node (if applicable)
-* Visual emphasis on current active weapon path
-* Clear separation between different Series constellations within the same Weapon Type
-
-This makes weapon progression feel like a **living, explorable constellation map rather than a menu list or traditional skill tree**, while remaining fully data-driven and extensible for all content packs.
+The right pane renders the **standardized information template**:
+1. **Overview Header**: Weapon Type, Active Series, Current Form name & icon, growth multipliers (Level, Refinement, Mastery, Effective Damage/Armor).
+2. **Selected Node Details**: Node Name, Description, Type, and Unlock state.
+3. **Requirement Display Panel**: Exact condition tracking and live completion progress (`7/10`).
+4. **Ability Display Panel**: Name, Description, Activation Type (Equip/Passive/Active/Master), and Scope.
+5. **Action Footer**: Standardized button hints (`[E] Unlock Node`, `[Tab] Back`).
 
 ---
 
@@ -333,16 +328,16 @@ This prevents confusion in complex progression trees.
 
 ### Visual Style Philosophy
 
-The UI should be inspired by Skyrim’s perk constellations, meaning:
+The UI is built as a **Flat 2D UI leveraging SkyUI as a mandatory requirement**:
 
-* Dark, mystical background
-* Glowing node connections
-* Magical, arcane aesthetic
-* Floating constellation-like structure
+* Flat 2D layout (avoiding 3D slanted perk perspective)
+* SkyUI-compliant panel alignment, standard font hierarchy, and dark background paneling
+* Left pane for 2D tree navigation, Right pane for standardized weapon info template
+* Smooth integration with Skyrim's SkyUI menu conventions
 
 However, it must NOT depend on:
 
-* Skyrim perk system logic
+* Skyrim vanilla perk system logic
 * Vanilla perk tree data
 * Any hardcoded Skyrim UI behavior
 
@@ -350,7 +345,7 @@ This is important because:
 
 The framework is replacing the perk system, not modifying it.
 
-So the UI is allowed to feel familiar, but it must be fully independent and custom-built.
+So the UI blends seamlessly with SkyUI, but is fully independent and custom-built.
 
 ---
 

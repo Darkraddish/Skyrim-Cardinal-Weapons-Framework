@@ -8,6 +8,7 @@
 #include "AbilityEffectEngine.h"
 #include "ContentValidationEngine.h"
 #include "ConstellationUIManager.h"
+#include "ExpansionManager.h"
 #include <string>
 #include <vector>
 
@@ -246,6 +247,17 @@ namespace CWFramework
         static bool SelectAndUnlockNode(const std::string& nodeId)
         {
             return ConstellationUIManager::GetInstance().SelectAndUnlockNode(nodeId);
+        }
+
+        // Expansion Support & Companion Hooks Shortcuts
+        static void RegisterCompanionModule(CompanionModuleType type, const std::string& moduleName)
+        {
+            ExpansionManager::GetInstance().RegisterCompanionModule(type, moduleName);
+        }
+
+        static bool IsCompanionModuleActive(CompanionModuleType type)
+        {
+            return ExpansionManager::GetInstance().IsCompanionModuleActive(type);
         }
     };
 }

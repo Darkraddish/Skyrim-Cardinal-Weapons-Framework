@@ -9,6 +9,7 @@
 #include "ContentValidationEngine.h"
 #include "ConstellationUIManager.h"
 #include "ExpansionManager.h"
+#include "AnimationCosmeticEngine.h"
 #include <string>
 #include <vector>
 
@@ -258,6 +259,17 @@ namespace CWFramework
         static bool IsCompanionModuleActive(CompanionModuleType type)
         {
             return ExpansionManager::GetInstance().IsCompanionModuleActive(type);
+        }
+
+        // Animation & Cosmetic Integration Shortcuts
+        static std::string GetOARWeaponFormConditionVariable()
+        {
+            return AnimationCosmeticEngine::GetInstance().GetOARWeaponFormConditionVariable();
+        }
+
+        static void TriggerTransformationEffects(const std::string& newFormId)
+        {
+            AnimationCosmeticEngine::GetInstance().TriggerTransformationEffects(newFormId);
         }
     };
 }

@@ -64,6 +64,8 @@ def main():
         os.path.join(SRC_DIR, "ConstellationUIManager.cpp"),
         os.path.join(INCLUDE_DIR, "ExpansionManager.h"),
         os.path.join(SRC_DIR, "ExpansionManager.cpp"),
+        os.path.join(INCLUDE_DIR, "AnimationCosmeticEngine.h"),
+        os.path.join(SRC_DIR, "AnimationCosmeticEngine.cpp"),
         os.path.join(PAPYRUS_DIR, "CWFramework_API.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_DataTypes.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_SaveAPI.psc"),
@@ -74,6 +76,7 @@ def main():
         os.path.join(PAPYRUS_DIR, "CWFramework_ValidationAPI.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_UIAPI.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_ExpansionAPI.psc"),
+        os.path.join(PAPYRUS_DIR, "CWFramework_AnimationAPI.psc"),
     ]
     
     for fpath in cpp_files:

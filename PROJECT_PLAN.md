@@ -6,10 +6,10 @@
 
 ## Overall Project Progress Overview
 
-- **Current Status**: Phase 5 Completed - Progression & Sub-System Engines
-- **Overall Completion**: `45%`
+- **Current Status**: Phase 6 Completed - Ability & Effect Engine
+- **Overall Completion**: `55%`
 - **Total Phases**: 11
-- **Completed Phases**: 5
+- **Completed Phases**: 6
 
 | Phase | Phase Name | Status | Target Deliverables |
 | :--- | :--- | :---: | :--- |
@@ -18,7 +18,7 @@
 | **Phase 3** | Legendary Weapon Manager | `[x] Completed` | Weapon type registration & active weapon lifecycle |
 | **Phase 4** | Requirement Engine | `[x] Completed` | Generic condition evaluation & live progress tracking |
 | **Phase 5** | Progression & Sub-System Engines | `[x] Completed` | Evolution, Level, Refinement, & Mastery engines |
-| **Phase 6** | Ability & Effect Engine | `[ ] Pending` | Equip, Active, Passive, & Master skill handlers |
+| **Phase 6** | Ability & Effect Engine | `[x] Completed` | Equip, Active, Passive, & Master skill handlers |
 | **Phase 7** | Content Validation Engine | `[ ] Pending` | Two-stage load/runtime integrity & failure isolation |
 | **Phase 8** | Custom Constellation UI Framework | `[ ] Pending` | Standalone radial constellation menu & dashboards |
 | **Phase 9** | Reference Content Pack | `[ ] Pending` | First fully playable weapon pack (Sword, Shield, Bow, Spear) |
@@ -118,7 +118,7 @@
 ---
 
 ### Phase 6: Ability & Effect Engine
-**Status**: `[ ] Pending`
+**Status**: `[x] Completed`
 
 * **Goal**: Manage skills, passive modifiers, and positive/negative stat effects.
 * **Key Guidelines & Rules**:
@@ -128,10 +128,10 @@
     * `Passive` & `Master`: Permanent (remain active across all forms once unlocked).
   * Effects: Support simultaneous positive boosts and negative drawbacks on a single node/form.
 * **Tasks**:
-  - [ ] Build `AbilityManager` handling Equip, Active, Passive, and Master skill categories.
-  - [ ] Implement form-bound listener (activates/deactivates Equip/Active skills on form change).
-  - [ ] Implement permanent ability manager (persists Passive/Master skills across forms).
-  - [ ] Implement positive & negative effect application engine.
+  - [x] Build `AbilityManager` handling Equip, Active, Passive, and Master skill categories.
+  - [x] Implement form-bound listener (activates/deactivates Equip/Active skills on form change).
+  - [x] Implement permanent ability manager (persists Passive/Master skills across forms).
+  - [x] Implement positive & negative effect application engine.
 
 ---
 

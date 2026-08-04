@@ -56,12 +56,15 @@ def main():
         os.path.join(SRC_DIR, "RequirementEvaluator.cpp"),
         os.path.join(INCLUDE_DIR, "ProgressionEngine.h"),
         os.path.join(SRC_DIR, "ProgressionEngine.cpp"),
+        os.path.join(INCLUDE_DIR, "AbilityEffectEngine.h"),
+        os.path.join(SRC_DIR, "AbilityEffectEngine.cpp"),
         os.path.join(PAPYRUS_DIR, "CWFramework_API.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_DataTypes.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_SaveAPI.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_WeaponManagerAPI.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_RequirementAPI.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_ProgressionAPI.psc"),
+        os.path.join(PAPYRUS_DIR, "CWFramework_AbilityAPI.psc"),
     ]
     
     for fpath in cpp_files:

@@ -5,6 +5,7 @@
 #include "LegendaryWeaponManager.h"
 #include "RequirementEvaluator.h"
 #include "ProgressionEngine.h"
+#include "AbilityEffectEngine.h"
 #include <string>
 #include <vector>
 
@@ -195,6 +196,22 @@ namespace CWFramework
         static double CalculateEffectiveDamage(double baseDamage)
         {
             return ProgressionEngine::GetInstance().CalculateEffectiveDamage(baseDamage);
+        }
+
+        // Ability & Effect Engine Shortcuts
+        static bool GrantAbility(const AbilityData& ability)
+        {
+            return AbilityEffectEngine::GetInstance().GrantAbility(ability);
+        }
+
+        static bool TriggerActiveAbility(const AbilityData& ability)
+        {
+            return AbilityEffectEngine::GetInstance().TriggerActiveAbility(ability);
+        }
+
+        static bool ApplyEffect(const EffectData& effect)
+        {
+            return AbilityEffectEngine::GetInstance().ApplyEffect(effect);
         }
     };
 }

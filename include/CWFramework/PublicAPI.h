@@ -3,6 +3,7 @@
 #include "Registry.h"
 #include "SaveManager.h"
 #include "LegendaryWeaponManager.h"
+#include "RequirementEvaluator.h"
 #include <string>
 #include <vector>
 
@@ -141,6 +142,32 @@ namespace CWFramework
         static void OnWeaponUnequipped(const std::string& itemFormId)
         {
             LegendaryWeaponManager::GetInstance().OnWeaponUnequipped(itemFormId);
+        }
+
+        // Requirement Engine Shortcuts
+        static bool CanUnlockNode(const ProgressionNodeData& node)
+        {
+            return RequirementEvaluator::GetInstance().CanUnlockNode(node);
+        }
+
+        static bool CanUnlockNodeById(const std::string& nodeId)
+        {
+            return RequirementEvaluator::GetInstance().CanUnlockNodeById(nodeId);
+        }
+
+        static std::tuple<double, double> GetRequirementProgress(const RequirementData& requirement)
+        {
+            return RequirementEvaluator::GetInstance().GetRequirementProgress(requirement);
+        }
+
+        static void RecordEnemyKill(const std::string& actorBaseId, uint32_t count = 1)
+        {
+            RequirementEvaluator::GetInstance().RecordKill(actorBaseId, count);
+        }
+
+        static void RecordItemAbsorption(const std::string& itemFormId, uint32_t count = 1)
+        {
+            RequirementEvaluator::GetInstance().RecordItemAbsorption(itemFormId, count);
         }
     };
 }

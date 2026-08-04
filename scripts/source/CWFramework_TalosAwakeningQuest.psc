@@ -31,30 +31,21 @@ Function OnTalosShrineWorshipped()
         return
     endif
 
-    ; Display selection dialog
     int choice = 0
     if CW_SelectionMenuMessage
-        choice = CW_SelectionMenuMessage.Show()
+        choice = CW_SelectionMenuMessage.Show(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
     endif
 
     if choice == 0
-        ; Player chose Cardinal Shield
         bool initOK = CWFramework_WeaponManagerAPI.InitiateWeaponSelection("CW_WT_SHIELD")
         bool confirmOK = CWFramework_WeaponManagerAPI.ConfirmWeaponChoice("CW_WT_SHIELD")
         
-        if confirmOK || initOK
-            bSelectionDone = true
-            if CW_StarterShieldItem
-                Game.GetPlayer().AddItem(CW_StarterShieldItem, 1, false)
-            endif
-            Debug.Notification("The Cardinal Shield has awakened! Your Shield Hero journey begins.")
-            SetStage(100)
-            CompleteQuest()
-        else
-            Debug.Notification("Cardinal Shield choice confirmed!")
-            bSelectionDone = true
-            SetStage(100)
-            CompleteQuest()
+        bSelectionDone = true
+        if CW_StarterShieldItem
+            Game.GetPlayer().AddItem(CW_StarterShieldItem, 1, false)
         endif
+        Debug.Notification("The Cardinal Shield has awakened! Your Shield Hero journey begins.")
+        SetStage(100)
+        CompleteQuest()
     endif
 EndFunction

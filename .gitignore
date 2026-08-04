@@ -3,6 +3,7 @@ build/
 out/
 bin/
 obj/
+dist/
 cmake-build-*/
 x64/
 x86/
@@ -20,6 +21,10 @@ Release/
 
 # Papyrus Compiled Scripts (Source .psc files are tracked, compiled .pex ignored)
 *.pex
+
+# Python byte code
+__pycache__/
+*.pyc
 
 # Visual Studio & IDE files
 .vs/

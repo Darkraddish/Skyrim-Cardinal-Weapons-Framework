@@ -169,7 +169,6 @@ namespace CWFramework
                     abiView.id = abiOpt->id;
                     abiView.name = abiOpt->name;
                     abiView.description = abiOpt->description;
-                    abiView.activationType = abiOpt->activationType;
                     abiView.scope = abiOpt->scope;
                     abiView.unlocked = (panel.selectedNodeState == NodeState::Unlocked);
                     panel.grantedAbilities.push_back(abiView);

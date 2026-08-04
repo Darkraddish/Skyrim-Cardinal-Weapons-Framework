@@ -66,8 +66,7 @@ namespace CWFramework
         std::string id;
         std::string name;
         std::string description;
-        AbilityActivationType activationType{ AbilityActivationType::Passive };
-        AbilityScope scope{ AbilityScope::Permanent };
+        AbilityScope scope{ AbilityScope::Passive };
         bool unlocked{ false };
     };
 

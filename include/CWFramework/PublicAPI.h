@@ -6,6 +6,7 @@
 #include "RequirementEvaluator.h"
 #include "ProgressionEngine.h"
 #include "AbilityEffectEngine.h"
+#include "ContentValidationEngine.h"
 #include <string>
 #include <vector>
 
@@ -212,6 +213,22 @@ namespace CWFramework
         static bool ApplyEffect(const EffectData& effect)
         {
             return AbilityEffectEngine::GetInstance().ApplyEffect(effect);
+        }
+
+        // Content Validation Engine Shortcuts
+        static ValidationResult ValidateRegisteredContentPackData()
+        {
+            return ContentValidationEngine::GetInstance().ValidateRegisteredContentPackData();
+        }
+
+        static ValidationResult VerifyNodePreUnlock(const std::string& nodeId)
+        {
+            return ContentValidationEngine::GetInstance().VerifyNodePreUnlock(nodeId);
+        }
+
+        static bool IsItemAvailable(const std::string& itemId)
+        {
+            return ContentValidationEngine::GetInstance().IsItemAvailable(itemId);
         }
     };
 }

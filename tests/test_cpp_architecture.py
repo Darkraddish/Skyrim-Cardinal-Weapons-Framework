@@ -60,6 +60,8 @@ def main():
         os.path.join(SRC_DIR, "AbilityEffectEngine.cpp"),
         os.path.join(INCLUDE_DIR, "ContentValidationEngine.h"),
         os.path.join(SRC_DIR, "ContentValidationEngine.cpp"),
+        os.path.join(INCLUDE_DIR, "ConstellationUIManager.h"),
+        os.path.join(SRC_DIR, "ConstellationUIManager.cpp"),
         os.path.join(PAPYRUS_DIR, "CWFramework_API.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_DataTypes.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_SaveAPI.psc"),
@@ -68,6 +70,7 @@ def main():
         os.path.join(PAPYRUS_DIR, "CWFramework_ProgressionAPI.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_AbilityAPI.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_ValidationAPI.psc"),
+        os.path.join(PAPYRUS_DIR, "CWFramework_UIAPI.psc"),
     ]
     
     for fpath in cpp_files:

@@ -7,6 +7,7 @@
 #include "ProgressionEngine.h"
 #include "AbilityEffectEngine.h"
 #include "ContentValidationEngine.h"
+#include "ConstellationUIManager.h"
 #include <string>
 #include <vector>
 
@@ -229,6 +230,22 @@ namespace CWFramework
         static bool IsItemAvailable(const std::string& itemId)
         {
             return ContentValidationEngine::GetInstance().IsItemAvailable(itemId);
+        }
+
+        // Custom Constellation UI Framework Shortcuts
+        static DashboardViewModel GetDashboardView()
+        {
+            return ConstellationUIManager::GetInstance().GetDashboardView();
+        }
+
+        static ConstellationNodeViewModel GetNodeDetailsView(const std::string& nodeId)
+        {
+            return ConstellationUIManager::GetInstance().GetNodeDetailsView(nodeId);
+        }
+
+        static bool SelectAndUnlockNode(const std::string& nodeId)
+        {
+            return ConstellationUIManager::GetInstance().SelectAndUnlockNode(nodeId);
         }
     };
 }

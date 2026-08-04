@@ -6,10 +6,10 @@
 
 ## Overall Project Progress Overview
 
-- **Current Status**: Phase 4 Completed - Requirement Engine
-- **Overall Completion**: `36%`
+- **Current Status**: Phase 5 Completed - Progression & Sub-System Engines
+- **Overall Completion**: `45%`
 - **Total Phases**: 11
-- **Completed Phases**: 4
+- **Completed Phases**: 5
 
 | Phase | Phase Name | Status | Target Deliverables |
 | :--- | :--- | :---: | :--- |
@@ -17,7 +17,7 @@
 | **Phase 2** | Save System & Data Persistence | `[x] Completed` | Single-weapon lock per save & state serialization |
 | **Phase 3** | Legendary Weapon Manager | `[x] Completed` | Weapon type registration & active weapon lifecycle |
 | **Phase 4** | Requirement Engine | `[x] Completed` | Generic condition evaluation & live progress tracking |
-| **Phase 5** | Progression & Sub-System Engines | `[ ] Pending` | Evolution, Level, Refinement, & Mastery engines |
+| **Phase 5** | Progression & Sub-System Engines | `[x] Completed` | Evolution, Level, Refinement, & Mastery engines |
 | **Phase 6** | Ability & Effect Engine | `[ ] Pending` | Equip, Active, Passive, & Master skill handlers |
 | **Phase 7** | Content Validation Engine | `[ ] Pending` | Two-stage load/runtime integrity & failure isolation |
 | **Phase 8** | Custom Constellation UI Framework | `[ ] Pending` | Standalone radial constellation menu & dashboards |
@@ -99,7 +99,7 @@
 ---
 
 ### Phase 5: Progression & Sub-System Engines
-**Status**: `[ ] Pending`
+**Status**: `[x] Completed`
 
 * **Goal**: Manage radial progression web traversal and the four independent growth sub-systems.
 * **Key Guidelines & Rules**:
@@ -109,11 +109,11 @@
   * **Refinement**: Multiplicative crafting/enhancement quality scaling.
   * **Mastery**: Passive continuous usage multiplier.
 * **Tasks**:
-  - [ ] Implement `EvolutionEngine` for node traversal, path unlocking, and convertible node resolution.
-  - [ ] Implement `LevelEngine` for flat bonus application.
-  - [ ] Implement `RefinementEngine` for crafting enhancement scaling.
-  - [ ] Implement `MasteryEngine` for tracking weapon usage and passive multiplier growth.
-  - [ ] Build node state manager (Locked, Unlockable, Unlocked).
+  - [x] Implement `EvolutionEngine` for node traversal, path unlocking, and convertible node resolution.
+  - [x] Implement `LevelEngine` for flat bonus application.
+  - [x] Implement `RefinementEngine` for crafting enhancement scaling.
+  - [x] Implement `MasteryEngine` for tracking weapon usage and passive multiplier growth.
+  - [x] Build node state manager (Locked, Unlockable, Unlocked).
 
 ---
 

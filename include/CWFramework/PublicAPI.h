@@ -4,6 +4,7 @@
 #include "SaveManager.h"
 #include "LegendaryWeaponManager.h"
 #include "RequirementEvaluator.h"
+#include "ProgressionEngine.h"
 #include <string>
 #include <vector>
 
@@ -168,6 +169,32 @@ namespace CWFramework
         static void RecordItemAbsorption(const std::string& itemFormId, uint32_t count = 1)
         {
             RequirementEvaluator::GetInstance().RecordItemAbsorption(itemFormId, count);
+        }
+
+        // Progression & Sub-System Engine Shortcuts
+        static bool UnlockProgressionNode(const std::string& nodeId)
+        {
+            return ProgressionEngine::GetInstance().UnlockProgressionNode(nodeId);
+        }
+
+        static void AddFlatLevelBonus(double bonus)
+        {
+            ProgressionEngine::GetInstance().AddFlatLevelBonus(bonus);
+        }
+
+        static bool UpgradeRefinementTier()
+        {
+            return ProgressionEngine::GetInstance().UpgradeRefinementTier();
+        }
+
+        static void AddMasteryXp(double xpAmount)
+        {
+            ProgressionEngine::GetInstance().AddMasteryXp(xpAmount);
+        }
+
+        static double CalculateEffectiveDamage(double baseDamage)
+        {
+            return ProgressionEngine::GetInstance().CalculateEffectiveDamage(baseDamage);
         }
     };
 }

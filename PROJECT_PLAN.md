@@ -6,16 +6,16 @@
 
 ## Overall Project Progress Overview
 
-- **Current Status**: Phase 1 Completed - Core Architecture & Data Schemas
-- **Overall Completion**: `9%`
+- **Current Status**: Phase 3 Completed - Legendary Weapon Manager & Registration
+- **Overall Completion**: `27%`
 - **Total Phases**: 11
-- **Completed Phases**: 1
+- **Completed Phases**: 3
 
 | Phase | Phase Name | Status | Target Deliverables |
 | :--- | :--- | :---: | :--- |
 | **Phase 1** | Core Architecture & Data Schemas | `[x] Completed` | Data models, schemas, and public framework APIs |
-| **Phase 2** | Save System & Data Persistence | `[ ] Pending` | Single-weapon lock per save & state serialization |
-| **Phase 3** | Legendary Weapon Manager | `[ ] Pending` | Weapon type registration & active weapon lifecycle |
+| **Phase 2** | Save System & Data Persistence | `[x] Completed` | Single-weapon lock per save & state serialization |
+| **Phase 3** | Legendary Weapon Manager | `[x] Completed` | Weapon type registration & active weapon lifecycle |
 | **Phase 4** | Requirement Engine | `[ ] Pending` | Generic condition evaluation & live progress tracking |
 | **Phase 5** | Progression & Sub-System Engines | `[ ] Pending` | Evolution, Level, Refinement, & Mastery engines |
 | **Phase 6** | Ability & Effect Engine | `[ ] Pending` | Equip, Active, Passive, & Master skill handlers |
@@ -46,32 +46,32 @@
 ---
 
 ### Phase 2: Save System & Persistence Engine
-**Status**: `[ ] Pending`
+**Status**: `[x] Completed`
 
 * **Goal**: Manage persistent state across play sessions and enforce single-weapon choice.
 * **Key Guidelines & Rules**:
   * Enforce **exactly one** Legendary Weapon per save file (chosen once, permanent for save lifetime).
   * Persist node unlock states, current form, and sub-system values across save loads.
 * **Tasks**:
-  - [ ] Build Save/Load serializer (SKSE CoSave / Papyrus persistence).
-  - [ ] Implement single-weapon lock-in flag per character save.
-  - [ ] Store active weapon state, unlocked node array, and branch visibility flags.
-  - [ ] Implement save file validation to prevent duplicate or illegal weapon state.
+  - [x] Build Save/Load serializer (SKSE CoSave / Papyrus persistence).
+  - [x] Implement single-weapon lock-in flag per character save.
+  - [x] Store active weapon state, unlocked node array, and branch visibility flags.
+  - [x] Implement save file validation to prevent duplicate or illegal weapon state.
 
 ---
 
 ### Phase 3: Legendary Weapon Manager & Registration
-**Status**: `[ ] Pending`
+**Status**: `[x] Completed`
 
 * **Goal**: Manage registration and active lifecycle of Legendary Weapons.
 * **Key Guidelines & Rules**:
   * Handle content pack weapon registrations dynamically at startup.
   * Track player's active chosen weapon and equip/unequip events.
 * **Tasks**:
-  - [ ] Implement `LegendaryWeaponManager` for registering Weapon Types from content packs.
-  - [ ] Build player weapon selection handler and choice confirmation flow.
-  - [ ] Manage active form swap logic on weapon draw/equip.
-  - [ ] Prevent player from equipping multiple cardinal weapons simultaneously.
+  - [x] Implement `LegendaryWeaponManager` for registering Weapon Types from content packs.
+  - [x] Build player weapon selection handler and choice confirmation flow.
+  - [x] Manage active form swap logic on weapon draw/equip.
+  - [x] Prevent player from equipping multiple cardinal weapons simultaneously.
 
 ---
 

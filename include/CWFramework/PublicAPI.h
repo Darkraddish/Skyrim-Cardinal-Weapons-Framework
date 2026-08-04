@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Registry.h"
+#include "SaveManager.h"
+#include "LegendaryWeaponManager.h"
 #include <string>
 #include <vector>
 
@@ -77,6 +79,68 @@ namespace CWFramework
         static std::vector<WeaponTypeData> GetAllWeaponTypes()
         {
             return Registry::GetInstance().GetAllWeaponTypes();
+        }
+
+        // Save & Persistence System Shortcuts
+        static bool LockInWeaponChoice(const std::string& weaponTypeId)
+        {
+            return SaveManager::GetInstance().LockInWeaponChoice(weaponTypeId);
+        }
+
+        static bool IsWeaponLocked()
+        {
+            return SaveManager::GetInstance().IsWeaponLocked();
+        }
+
+        static std::string GetChosenWeaponTypeId()
+        {
+            return SaveManager::GetInstance().GetChosenWeaponTypeId();
+        }
+
+        static bool SetCurrentForm(const std::string& formId)
+        {
+            return SaveManager::GetInstance().SetCurrentForm(formId);
+        }
+
+        static std::string GetCurrentFormId()
+        {
+            return SaveManager::GetInstance().GetCurrentFormId();
+        }
+
+        static bool UnlockNode(const std::string& nodeId)
+        {
+            return SaveManager::GetInstance().UnlockNode(nodeId);
+        }
+
+        static bool IsNodeUnlocked(const std::string& nodeId)
+        {
+            return SaveManager::GetInstance().IsNodeUnlocked(nodeId);
+        }
+
+        // Legendary Weapon Lifecycle & Management Shortcuts
+        static bool InitiateWeaponSelection(const std::string& weaponTypeId)
+        {
+            return LegendaryWeaponManager::GetInstance().InitiateWeaponSelection(weaponTypeId);
+        }
+
+        static bool ConfirmWeaponChoice(const std::string& weaponTypeId)
+        {
+            return LegendaryWeaponManager::GetInstance().ConfirmWeaponChoice(weaponTypeId);
+        }
+
+        static bool SwapActiveForm(const std::string& newFormId)
+        {
+            return LegendaryWeaponManager::GetInstance().SwapActiveForm(newFormId);
+        }
+
+        static bool OnWeaponEquipped(const std::string& itemFormId)
+        {
+            return LegendaryWeaponManager::GetInstance().OnWeaponEquipped(itemFormId);
+        }
+
+        static void OnWeaponUnequipped(const std::string& itemFormId)
+        {
+            LegendaryWeaponManager::GetInstance().OnWeaponUnequipped(itemFormId);
         }
     };
 }

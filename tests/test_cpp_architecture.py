@@ -47,8 +47,15 @@ def main():
         os.path.join(SRC_DIR, "Registry.cpp"),
         os.path.join(INCLUDE_DIR, "SchemaValidator.h"),
         os.path.join(SRC_DIR, "SchemaValidator.cpp"),
+        os.path.join(INCLUDE_DIR, "SaveData.h"),
+        os.path.join(INCLUDE_DIR, "SaveManager.h"),
+        os.path.join(SRC_DIR, "SaveManager.cpp"),
+        os.path.join(INCLUDE_DIR, "LegendaryWeaponManager.h"),
+        os.path.join(SRC_DIR, "LegendaryWeaponManager.cpp"),
         os.path.join(PAPYRUS_DIR, "CWFramework_API.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_DataTypes.psc"),
+        os.path.join(PAPYRUS_DIR, "CWFramework_SaveAPI.psc"),
+        os.path.join(PAPYRUS_DIR, "CWFramework_WeaponManagerAPI.psc"),
     ]
     
     for fpath in cpp_files:

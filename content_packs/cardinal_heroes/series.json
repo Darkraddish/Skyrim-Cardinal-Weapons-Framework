@@ -1,0 +1,42 @@
+[
+  {
+    "id": "CW_SER_BEAST_SHIELD",
+    "weaponTypeId": "CW_WT_SHIELD",
+    "name": "Beast Shield Series",
+    "description": "Wild beast evolution series unlocking animalistic counter abilities.",
+    "iconAsset": "textures/ui/icons/beast.dds",
+    "rootNodeId": "CW_NODE_BEAST_START"
+  },
+  {
+    "id": "CW_SER_DRAGON_SHIELD",
+    "weaponTypeId": "CW_WT_SHIELD",
+    "name": "Dragon Shield Series",
+    "description": "Ancient dragon evolution series granting elemental flame resistance.",
+    "iconAsset": "textures/ui/icons/dragon.dds",
+    "rootNodeId": "CW_NODE_DRAGON_START"
+  },
+  {
+    "id": "CW_SER_HERO_SWORD",
+    "weaponTypeId": "CW_WT_SWORD",
+    "name": "Hero Sword Series",
+    "description": "Valiant sword evolution series focusing on critical strike art.",
+    "iconAsset": "textures/ui/icons/hero_sword.dds",
+    "rootNodeId": "CW_NODE_SWORD_START"
+  },
+  {
+    "id": "CW_SER_HUNTER_BOW",
+    "weaponTypeId": "CW_WT_BOW",
+    "name": "Hunter Bow Series",
+    "description": "Precision archery series enhancing critical shot damage.",
+    "iconAsset": "textures/ui/icons/hunter_bow.dds",
+    "rootNodeId": "CW_NODE_BOW_START"
+  },
+  {
+    "id": "CW_SER_LANCE_SPEAR",
+    "weaponTypeId": "CW_WT_SPEAR",
+    "name": "Lance Spear Series",
+    "description": "Piercing polearm series focused on armor piercing charges.",
+    "iconAsset": "textures/ui/icons/lance_spear.dds",
+    "rootNodeId": "CW_NODE_SPEAR_START"
+  }
+]

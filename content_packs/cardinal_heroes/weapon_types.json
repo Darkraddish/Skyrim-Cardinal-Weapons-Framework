@@ -1,0 +1,30 @@
+[
+  {
+    "id": "CW_WT_SHIELD",
+    "name": "Cardinal Shield",
+    "description": "Legendary Shield progression category providing defense, absorption, and protective counters.",
+    "iconAsset": "textures/ui/icons/shield.dds",
+    "baseSeriesIds": ["CW_SER_BEAST_SHIELD", "CW_SER_DRAGON_SHIELD"]
+  },
+  {
+    "id": "CW_WT_SWORD",
+    "name": "Cardinal Sword",
+    "description": "Legendary Sword progression category providing offensive strikes, slash techniques, and blade mastery.",
+    "iconAsset": "textures/ui/icons/sword.dds",
+    "baseSeriesIds": ["CW_SER_HERO_SWORD"]
+  },
+  {
+    "id": "CW_WT_BOW",
+    "name": "Cardinal Bow",
+    "description": "Legendary Bow progression category providing long-range marksmanship and elemental arrows.",
+    "iconAsset": "textures/ui/icons/bow.dds",
+    "baseSeriesIds": ["CW_SER_HUNTER_BOW"]
+  },
+  {
+    "id": "CW_WT_SPEAR",
+    "name": "Cardinal Spear",
+    "description": "Legendary Spear progression category providing polearm thrusts and reach tactics.",
+    "iconAsset": "textures/ui/icons/spear.dds",
+    "baseSeriesIds": ["CW_SER_LANCE_SPEAR"]
+  }
+]

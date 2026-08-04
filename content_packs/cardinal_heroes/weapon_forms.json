@@ -1,0 +1,38 @@
+[
+  {
+    "id": "CW_FORM_SMALL_SHIELD",
+    "seriesId": "CW_SER_BEAST_SHIELD",
+    "name": "Small Shield",
+    "description": "Initial form of the Cardinal Shield.",
+    "modelAsset": "meshes/weapons/cardinal/small_shield.nif",
+    "iconAsset": "textures/ui/icons/small_shield.dds",
+    "baseArmor": 12.0,
+    "baseWeight": 5.0,
+    "value": 50,
+    "abilityIds": []
+  },
+  {
+    "id": "CW_FORM_WOLF_SHIELD",
+    "seriesId": "CW_SER_BEAST_SHIELD",
+    "name": "Two-Headed Black Dog Shield",
+    "description": "Shield granted by absorbing Two-Headed Black Dog essence.",
+    "modelAsset": "meshes/weapons/cardinal/shield_wolf.nif",
+    "iconAsset": "textures/ui/icons/shield_wolf.dds",
+    "baseArmor": 24.0,
+    "baseWeight": 10.0,
+    "value": 350,
+    "abilityIds": ["CW_ABI_SHIELD_AIR_STRIKE"]
+  },
+  {
+    "id": "CW_FORM_FENRIR_SHIELD",
+    "seriesId": "CW_SER_BEAST_SHIELD",
+    "name": "Fenrir Shield",
+    "description": "Capstone beast form unleashing fierce counter attacks.",
+    "modelAsset": "meshes/weapons/cardinal/shield_fenrir.nif",
+    "iconAsset": "textures/ui/icons/shield_fenrir.dds",
+    "baseArmor": 45.0,
+    "baseWeight": 14.0,
+    "value": 1200,
+    "abilityIds": ["CW_ABI_SHIELD_AIR_STRIKE", "CW_ABI_DOG_BITE"]
+  }
+]

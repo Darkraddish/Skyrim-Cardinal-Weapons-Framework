@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Requirement",
+  "description": "Data schema for a generic unlock requirement in Cardinal Weapon Framework.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the requirement."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "KillCount",
+        "ItemAbsorption",
+        "WeaponCopy",
+        "QuestState",
+        "PlayerLevel",
+        "ParentNodeDependency",
+        "CraftingRequirement",
+        "LocationRequirement",
+        "SpecialEventTrigger",
+        "CustomScript"
+      ],
+      "description": "Category of condition to evaluate."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable requirement description shown in UI (e.g., 'Defeat 10 Dire Wolves')."
+    },
+    "targetId": {
+      "type": "string",
+      "description": "Target identifier (e.g., ActorBase ID, Item FormID, Quest ID, Location FormID)."
+    },
+    "targetValue": {
+      "type": "number",
+      "description": "Numeric target value (e.g., required kill count, level threshold, quest stage)."
+    },
+    "scriptName": {
+      "type": "string",
+      "description": "Optional script name for custom Papyrus/C++ condition handlers."
+    }
+  },
+  "required": ["id", "type"],
+  "additionalProperties": false
+}

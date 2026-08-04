@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Ability",
+  "description": "Data schema for a functional skill or ability in Cardinal Weapon Framework.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the ability (e.g., 'CW_ABI_SHIELD_AIR_STRIKE')."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the ability."
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed explanation of ability effect and activation rules."
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["Equip", "Active", "Passive", "Master"],
+      "description": "Scope marker: Equip/Active are form-bound; Passive/Master are permanent across forms."
+    },
+    "spellFormId": {
+      "type": "string",
+      "description": "Associated Skyrim Spell FormID or Editor ID."
+    },
+    "perkFormId": {
+      "type": "string",
+      "description": "Associated Skyrim Perk FormID or Editor ID."
+    },
+    "cooldown": {
+      "type": "number",
+      "default": 0.0,
+      "description": "Cooldown duration in seconds for Active skills."
+    },
+    "magickaCost": {
+      "type": "number",
+      "default": 0.0,
+      "description": "Magicka cost for manual activation."
+    },
+    "staminaCost": {
+      "type": "number",
+      "default": 0.0,
+      "description": "Stamina cost for manual activation."
+    }
+  },
+  "required": ["id", "name", "scope"],
+  "additionalProperties": false
+}

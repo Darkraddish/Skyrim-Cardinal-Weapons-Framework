@@ -1,0 +1,44 @@
+# Build output & binaries
+build/
+out/
+bin/
+obj/
+cmake-build-*/
+x64/
+x86/
+Debug/
+Release/
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.lib
+*.exp
+*.o
+*.obj
+
+# Papyrus Compiled Scripts (Source .psc files are tracked, compiled .pex ignored)
+*.pex
+
+# Visual Studio & IDE files
+.vs/
+*.vcxproj.user
+*.suo
+*.user
+*.sln.docstates
+.idea/
+.vscode/
+*.cache
+
+# Logs & Temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store

@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Series",
+  "description": "Data schema for a thematic Series branch within a Weapon Type in Cardinal Weapon Framework.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the series (e.g., 'CW_SER_BEAST_SHIELD')."
+    },
+    "weaponTypeId": {
+      "type": "string",
+      "description": "Identifier of the parent Weapon Type this series belongs to."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the series (e.g., 'Beast Series', 'Dwemer Series')."
+    },
+    "description": {
+      "type": "string",
+      "description": "Lore and summary description of the series theme."
+    },
+    "iconAsset": {
+      "type": "string",
+      "description": "Path to visual theme/series icon asset for UI display."
+    },
+    "rootNodeId": {
+      "type": "string",
+      "description": "Optional starting node ID for this series constellation branch."
+    }
+  },
+  "required": ["id", "weaponTypeId", "name"],
+  "additionalProperties": false
+}

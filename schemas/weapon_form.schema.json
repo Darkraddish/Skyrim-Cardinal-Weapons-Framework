@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WeaponForm",
+  "description": "Data schema for a specific weapon stage/evolution Form in Cardinal Weapon Framework.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the weapon form."
+    },
+    "seriesId": {
+      "type": "string",
+      "description": "Identifier of the parent Series this form belongs to."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of this weapon form."
+    },
+    "description": {
+      "type": "string",
+      "description": "Flavor text and details of the form."
+    },
+    "modelAsset": {
+      "type": "string",
+      "description": "Path to the Skyrim model mesh file (.nif)."
+    },
+    "iconAsset": {
+      "type": "string",
+      "description": "Path to UI display icon."
+    },
+    "baseDamage": {
+      "type": "number",
+      "description": "Base weapon damage stat."
+    },
+    "baseArmor": {
+      "type": "number",
+      "description": "Base shield armor stat (if applicable)."
+    },
+    "baseWeight": {
+      "type": "number",
+      "description": "Base item weight."
+    },
+    "value": {
+      "type": "integer",
+      "description": "Base gold value."
+    },
+    "abilityIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of form-bound ability IDs granted by this form."
+    }
+  },
+  "required": ["id", "seriesId", "name"],
+  "additionalProperties": false
+}

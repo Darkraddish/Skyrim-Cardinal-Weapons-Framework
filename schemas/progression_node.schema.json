@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProgressionNode",
+  "description": "Data schema for an individual progression node within a radial constellation network in Cardinal Weapon Framework.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the progression node."
+    },
+    "seriesId": {
+      "type": "string",
+      "description": "Identifier of the Series constellation tree this node belongs to."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the node."
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of what unlocking this node grants."
+    },
+    "nodeType": {
+      "type": "string",
+      "enum": ["Form", "PassiveUpgrade", "AbilityUnlock", "Transformation", "RefinementMilestone", "EventBranch"],
+      "description": "Functional classification of the node."
+    },
+    "posX": {
+      "type": "number",
+      "description": "X coordinate in UI constellation spatial layout."
+    },
+    "posY": {
+      "type": "number",
+      "description": "Y coordinate in UI constellation spatial layout."
+    },
+    "parentNodeIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Parent node IDs that must be completed before this node becomes accessible."
+    },
+    "unlockedFormId": {
+      "type": "string",
+      "description": "Optional Weapon Form ID granted or evolved into upon node completion."
+    },
+    "isConvertible": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if node is a convertible node whose outcome is resolved in-place upon subsequent milestones."
+    },
+    "requirementIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of requirement IDs that must all be satisfied to unlock this node."
+    },
+    "abilityIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of ability IDs granted when this node is unlocked."
+    },
+    "effectIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of stat modifier effect IDs attached to this node."
+    },
+    "recipeIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of crafting/refinement recipe IDs unlocked by this node."
+    },
+    "revealedBranchSeriesIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional series IDs revealed/unlocked upon completing this event node."
+    }
+  },
+  "required": ["id", "seriesId", "name", "nodeType"],
+  "additionalProperties": false
+}

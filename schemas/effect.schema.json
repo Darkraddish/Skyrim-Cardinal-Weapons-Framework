@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Effect",
+  "description": "Data schema for passive stat modifier effects (positive boosts & negative drawbacks) in Cardinal Weapon Framework.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the stat effect."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the effect."
+    },
+    "targetActorValue": {
+      "type": "string",
+      "description": "Target Skyrim Actor Value or framework stat key (e.g., 'Health', 'DamageResist', 'StaminaRate')."
+    },
+    "modifierType": {
+      "type": "string",
+      "enum": ["FlatAdditive", "PercentageMultiplier"],
+      "description": "Defines whether value is flat additive (+15 Armor) or percentage multiplier (*1.10 Damage)."
+    },
+    "value": {
+      "type": "number",
+      "description": "Numeric magnitude of modifier. Positive values represent boosts, negative values represent drawbacks."
+    }
+  },
+  "required": ["id", "name", "targetActorValue", "modifierType", "value"],
+  "additionalProperties": false
+}

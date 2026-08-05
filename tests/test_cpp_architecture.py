@@ -66,6 +66,7 @@ def main():
         os.path.join(SRC_DIR, "ExpansionManager.cpp"),
         os.path.join(INCLUDE_DIR, "AnimationCosmeticEngine.h"),
         os.path.join(SRC_DIR, "AnimationCosmeticEngine.cpp"),
+        os.path.join(SRC_DIR, "main.cpp"),
         os.path.join(PAPYRUS_DIR, "CWFramework_API.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_DataTypes.psc"),
         os.path.join(PAPYRUS_DIR, "CWFramework_SaveAPI.psc"),

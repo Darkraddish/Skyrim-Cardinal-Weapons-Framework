@@ -13,7 +13,7 @@ struct SKSEPluginVersionData
     char author[256]{ "Darkraddish" };
     uint32_t addressLibraryVersion{ 1 };
     uint32_t sigStructVersion{ 1 };
-    uint32_t compatibleVersions[16]{ 0 };
+    uint32_t compatibleVersions[16]{ 0x01064920, 0x01060930, 0x01050610, 0 };
     uint32_t minimumSKSEVersion{ 0 };
 };
 
@@ -22,9 +22,9 @@ extern "C" __declspec(dllexport) constinit SKSEPluginVersionData SKSEPlugin_Vers
     1,                           // Plugin Version
     "Cardinal Weapon Framework", // Name
     "Darkraddish",                // Author
-    0,                           // Address Library Version
-    0,                           // Signature Struct Version
-    { 0 },                       // Compatible Versions
+    1,                           // Address Library Version (1 = Uses Address Library / AE compatible)
+    1,                           // Signature Struct Version (1 = Uses Updated Structs)
+    { 0x01064920, 0x01060930, 0x01050610, 0 }, // Compatible Versions (Skyrim AE 1.6.1170, 1.6.640, 1.5.97)
     0                            // Minimum SKSE Version
 };
 

@@ -3,11 +3,14 @@ ScriptName CWFramework_AutoStartScript extends Quest
 Book Property CW_CardinalLegendBook Auto
 Quest Property CW_AwakeningQuest Auto
 
+ObjectReference Property PlacedBookRef Auto Hidden
+
 event OnInit()
     Debug.Trace("[CWFramework] CWFramework_AutoStartScript Quest OnInit fired!")
     RegisterForSingleUpdate(1.0)
     RegisterForKey(24) ; 'O' key
     AutoStart()
+    PlaceBookInDragonsreach()
 endEvent
 
 event OnPlayerLoadGame()
@@ -15,7 +18,30 @@ event OnPlayerLoadGame()
     RegisterForSingleUpdate(1.0)
     RegisterForKey(24) ; 'O' key
     AutoStart()
+    PlaceBookInDragonsreach()
 endEvent
+
+Function PlaceBookInDragonsreach()
+    if CWFramework_SaveAPI.IsWeaponLocked()
+        return
+    endif
+
+    if PlacedBookRef == None
+        ; Cell 0x000165A7 is Whiterun Dragonsreach interior
+        ObjectReference dragonsreachRef = Game.GetForm(0x000165A7) as ObjectReference
+        Actor p = Game.GetPlayer()
+        if p && CW_CardinalLegendBook
+            ; Spawn book right on top of Farengar's alchemy table in Dragonsreach
+            PlacedBookRef = p.PlaceAtMe(CW_CardinalLegendBook, 1, false, true)
+            if PlacedBookRef
+                PlacedBookRef.SetPosition(-760.0, -1150.0, -90.0)
+                PlacedBookRef.SetAngle(0.0, 0.0, 45.0)
+                PlacedBookRef.Enable(false)
+                Debug.Trace("[CWFramework] Successfully placed 'The Legend of the Four Cardinal Weapons' on Farengar's Alchemy Table in Dragonsreach!")
+            endif
+        endif
+    endif
+EndFunction
 
 Function AutoStart()
     if CW_AwakeningQuest
@@ -33,39 +59,6 @@ Function AutoStart()
             Debug.Notification("The Shrine of Talos has granted you 'The Legend of the Four Cardinal Weapons'!")
         endif
     endif
-EndFunction
-
-bool Function PlayerHasTalosBlessing(Actor p)
-    if !p
-        return false
-    endif
-    
-    MagicEffect e1 = Game.GetForm(0x000FB992) as MagicEffect
-    MagicEffect e2 = Game.GetForm(0x000E0CFC) as MagicEffect
-    if (e1 && p.HasMagicEffect(e1)) || (e2 && p.HasMagicEffect(e2))
-        return true
-    endif
-
-    Spell s1 = Game.GetForm(0x000FB988) as Spell
-    Spell s2 = Game.GetForm(0x000E0CFB) as Spell
-    Spell s3 = Game.GetForm(0x0010E869) as Spell
-    if (s1 && p.HasSpell(s1)) || (s2 && p.HasSpell(s2)) || (s3 && p.HasSpell(s3))
-        return true
-    endif
-
-    int i = p.GetSpellCount()
-    while i > 0
-        i -= 1
-        Spell sp = p.GetNthSpell(i)
-        if sp
-            string n = sp.GetName()
-            if n == "Blessing of Talos" || n == "Shrine of Talos" || sp.HasKeywordString("BlessingTalos") || sp.HasKeywordString("ShrineTalos")
-                return true
-            endif
-        endif
-    endWhile
-
-    return false
 EndFunction
 
 event OnKeyDown(int keyCode)
@@ -94,4 +87,5 @@ event OnUpdate()
     RegisterForKey(24) ; 'O' key
     RegisterForSingleUpdate(1.0)
     AutoStart()
+    PlaceBookInDragonsreach()
 endEvent

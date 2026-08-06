@@ -130,6 +130,11 @@ namespace CWFrameworkBindings
         LogDiagnostic("Papyrus Binding: IsFrameworkReady()");
         return CWFramework::PublicAPI::IsFrameworkReady();
     }
+
+    void ResetSaveState() {
+        LogDiagnostic("Papyrus Binding: ResetSaveState() called. Unlocking weapon choice.");
+        CWFramework::SaveManager::GetInstance().ResetSaveState();
+    }
 }
 
 struct SKSEMessagingInterface

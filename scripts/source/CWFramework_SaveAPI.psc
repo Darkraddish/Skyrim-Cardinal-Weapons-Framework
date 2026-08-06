@@ -7,3 +7,4 @@ Function SetCurrentForm(string asFormId) Global Native
 string Function GetCurrentFormId() Global Native
 bool Function UnlockNode(string asNodeId) Global Native
 bool Function IsNodeUnlocked(string asNodeId) Global Native
+Function ResetSaveState() Global Native

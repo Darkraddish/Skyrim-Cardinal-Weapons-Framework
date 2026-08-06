@@ -25,25 +25,21 @@ Function OnBookRead()
         return
     endif
 
-    int choice = 0
-    if CW_SelectionMenuMessage
-        choice = CW_SelectionMenuMessage.Show(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+    Debug.Trace("[CWFramework] OnBookRead triggered!")
+    
+    bool initOK = CWFramework_WeaponManagerAPI.InitiateWeaponSelection("CW_WT_SHIELD")
+    bool confirmOK = CWFramework_WeaponManagerAPI.ConfirmWeaponChoice("CW_WT_SHIELD")
+    
+    bSelectionDone = true
+    Actor p = Game.GetPlayer()
+    if CW_StarterShieldItem && p
+        p.AddItem(CW_StarterShieldItem, 1, false)
+        p.EquipItem(CW_StarterShieldItem, false, false)
     endif
-
-    if choice == 0
-        bool initOK = CWFramework_WeaponManagerAPI.InitiateWeaponSelection("CW_WT_SHIELD")
-        bool confirmOK = CWFramework_WeaponManagerAPI.ConfirmWeaponChoice("CW_WT_SHIELD")
-        
-        bSelectionDone = true
-        Actor p = Game.GetPlayer()
-        if CW_StarterShieldItem && p
-            p.AddItem(CW_StarterShieldItem, 1, false)
-            p.EquipItem(CW_StarterShieldItem, false, false)
-        endif
-        Debug.Notification("Your Cardinal Weapon has awakened! Press 'O' to open the Cardinal Weapon Menu.")
-        SetStage(100)
-        CompleteQuest()
-    endif
+    Debug.Notification("Your Cardinal Shield has awakened! Press 'O' to open the Cardinal Weapon Menu.")
+    Debug.Trace("[CWFramework] Cardinal Shield awakened successfully on book read.")
+    SetStage(100)
+    CompleteQuest()
 EndFunction
 
 Function OpenCardinalWeaponMenu()

@@ -20,31 +20,59 @@ Function Maintenance()
     endif
 EndFunction
 
-Function OnBookRead()
+Function ShowSelectionMenu()
     if CWFramework_SaveAPI.IsWeaponLocked() || bSelectionDone
         return
     endif
 
-    Debug.Trace("[CWFramework] OnBookRead triggered!")
-    
-    bool initOK = CWFramework_WeaponManagerAPI.InitiateWeaponSelection("CW_WT_SHIELD")
-    bool confirmOK = CWFramework_WeaponManagerAPI.ConfirmWeaponChoice("CW_WT_SHIELD")
+    Debug.Trace("[CWFramework] Displaying 4-Weapon Selection Menu...")
+
+    int choice = 4
+    if CW_SelectionMenuMessage
+        choice = CW_SelectionMenuMessage.Show(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+    endif
+
+    string chosenType = ""
+    string chosenName = ""
+
+    if choice == 0
+        chosenType = "CW_WT_SHIELD"
+        chosenName = "Cardinal Shield"
+    elseif choice == 1
+        chosenType = "CW_WT_SWORD"
+        chosenName = "Cardinal Sword"
+    elseif choice == 2
+        chosenType = "CW_WT_SPEAR"
+        chosenName = "Cardinal Spear"
+    elseif choice == 3
+        chosenType = "CW_WT_BOW"
+        chosenName = "Cardinal Bow"
+    else
+        Debug.Trace("[CWFramework] Player deferred weapon selection.")
+        return
+    endif
+
+    bool initOK = CWFramework_WeaponManagerAPI.InitiateWeaponSelection(chosenType)
+    bool confirmOK = CWFramework_WeaponManagerAPI.ConfirmWeaponChoice(chosenType)
     
     bSelectionDone = true
     Actor p = Game.GetPlayer()
-    if CW_StarterShieldItem && p
+    
+    if chosenType == "CW_WT_SHIELD" && CW_StarterShieldItem && p
         p.AddItem(CW_StarterShieldItem, 1, false)
         p.EquipItem(CW_StarterShieldItem, false, false)
     endif
-    Debug.Notification("Your Cardinal Shield has awakened! Press 'O' to open the Cardinal Weapon Menu.")
-    Debug.Trace("[CWFramework] Cardinal Shield awakened successfully on book read.")
+
+    Debug.Notification("You have chosen the " + chosenName + "! Your Cardinal Weapon has awakened.")
+    Debug.Notification("Press 'O' at any time to open your Cardinal Weapon Menu.")
+    Debug.Trace("[CWFramework] Weapon choice confirmed: " + chosenType)
     SetStage(100)
     CompleteQuest()
 EndFunction
 
 Function OpenCardinalWeaponMenu()
     if !CWFramework_SaveAPI.IsWeaponLocked()
-        Debug.Notification("You must pray at a Shrine of Talos to receive 'The Legend of the Four Cardinal Weapons'.")
+        ShowSelectionMenu()
         return
     endif
 

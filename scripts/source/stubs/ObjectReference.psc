@@ -22,3 +22,6 @@ EndFunction
 int Function GetItemCount(Form akItemToCheck)
     return 0
 EndFunction
+
+Function RegisterForSingleUpdate(float afTime)
+EndFunction

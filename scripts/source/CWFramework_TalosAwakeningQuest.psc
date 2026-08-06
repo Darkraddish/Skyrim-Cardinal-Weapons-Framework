@@ -7,11 +7,14 @@ Form Property CW_StarterShieldItem Auto
 bool bSelectionDone = false
 
 event OnInit()
+    Debug.Trace("[CWFramework] TALOS_QUEST: Quest OnInit fired!")
     Maintenance()
 endEvent
 
 Function Maintenance()
-    if CWFramework_SaveAPI.IsWeaponLocked()
+    bool locked = CWFramework_SaveAPI.IsWeaponLocked()
+    Debug.Trace("[CWFramework] TALOS_QUEST: Maintenance check. IsWeaponLocked=" + locked + " bSelectionDone=" + bSelectionDone)
+    if locked
         bSelectionDone = true
         SetStage(100)
     else
@@ -21,15 +24,23 @@ Function Maintenance()
 EndFunction
 
 Function ShowSelectionMenu()
-    if CWFramework_SaveAPI.IsWeaponLocked() || bSelectionDone
+    bool locked = CWFramework_SaveAPI.IsWeaponLocked()
+    Debug.Trace("[CWFramework] TALOS_QUEST: ShowSelectionMenu called! IsWeaponLocked=" + locked + " bSelectionDone=" + bSelectionDone)
+    Debug.Notification("[CWFramework] ShowSelectionMenu Called! Locked=" + locked)
+
+    if locked || bSelectionDone
+        Debug.Trace("[CWFramework] TALOS_QUEST: Weapon already locked or selection done. Exiting ShowSelectionMenu.")
         return
     endif
 
-    Debug.Trace("[CWFramework] Displaying 4-Weapon Selection Menu...")
+    Debug.Trace("[CWFramework] TALOS_QUEST: Displaying 4-Weapon Selection Menu... MessageProp=" + CW_SelectionMenuMessage)
 
     int choice = 4
     if CW_SelectionMenuMessage
         choice = CW_SelectionMenuMessage.Show(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        Debug.Trace("[CWFramework] TALOS_QUEST: SelectionMenuMessage returned choice: " + choice)
+    else
+        Debug.Trace("[CWFramework] TALOS_QUEST: ERROR - CW_SelectionMenuMessage property is None!")
     endif
 
     string chosenType = ""
@@ -48,12 +59,13 @@ Function ShowSelectionMenu()
         chosenType = "CW_WT_BOW"
         chosenName = "Cardinal Bow"
     else
-        Debug.Trace("[CWFramework] Player deferred weapon selection.")
+        Debug.Trace("[CWFramework] TALOS_QUEST: Player deferred weapon selection. Choice was: " + choice)
         return
     endif
 
     bool initOK = CWFramework_WeaponManagerAPI.InitiateWeaponSelection(chosenType)
     bool confirmOK = CWFramework_WeaponManagerAPI.ConfirmWeaponChoice(chosenType)
+    Debug.Trace("[CWFramework] TALOS_QUEST: C++ API Calls: InitiateOK=" + initOK + " ConfirmOK=" + confirmOK)
     
     bSelectionDone = true
     Actor p = Game.GetPlayer()
@@ -61,17 +73,23 @@ Function ShowSelectionMenu()
     if chosenType == "CW_WT_SHIELD" && CW_StarterShieldItem && p
         p.AddItem(CW_StarterShieldItem, 1, false)
         p.EquipItem(CW_StarterShieldItem, false, false)
+        Debug.Trace("[CWFramework] TALOS_QUEST: Added and equipped CW_StarterShieldItem.")
     endif
 
     Debug.Notification("You have chosen the " + chosenName + "! Your Cardinal Weapon has awakened.")
     Debug.Notification("Press 'O' at any time to open your Cardinal Weapon Menu.")
-    Debug.Trace("[CWFramework] Weapon choice confirmed: " + chosenType)
+    Debug.Trace("[CWFramework] TALOS_QUEST: Weapon choice confirmed successfully: " + chosenType)
     SetStage(100)
     CompleteQuest()
 EndFunction
 
 Function OpenCardinalWeaponMenu()
-    if !CWFramework_SaveAPI.IsWeaponLocked()
+    bool locked = CWFramework_SaveAPI.IsWeaponLocked()
+    Debug.Trace("[CWFramework] TALOS_QUEST: OpenCardinalWeaponMenu called. IsWeaponLocked=" + locked)
+    Debug.Notification("[CWFramework] OpenCardinalWeaponMenu. Locked=" + locked)
+
+    if !locked
+        Debug.Trace("[CWFramework] TALOS_QUEST: Weapon not locked yet. Redirecting to ShowSelectionMenu().")
         ShowSelectionMenu()
         return
     endif
@@ -80,6 +98,9 @@ Function OpenCardinalWeaponMenu()
     int choice = 0
     if CW_ShieldMenuMessage
         choice = CW_ShieldMenuMessage.Show(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        Debug.Trace("[CWFramework] TALOS_QUEST: ShieldMenuMessage returned choice: " + choice)
+    else
+        Debug.Trace("[CWFramework] TALOS_QUEST: ERROR - CW_ShieldMenuMessage property is None!")
     endif
 
     if choice == 0

@@ -1,7 +1,4 @@
-Scriptname ReferenceAlias Hidden
+ScriptName ReferenceAlias extends Alias hidden
 
-Quest Function GetOwningQuest() Native
-ObjectReference Function GetReference() Native
-Function RegisterForSingleUpdate(float afInterval) Native
-Function RegisterForKey(int keyCode) Native
-Function UnregisterForKey(int keyCode) Native
+Function RegisterForPlayerSleep() native
+Function UnregisterForPlayerSleep() native

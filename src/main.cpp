@@ -172,6 +172,87 @@ namespace
     }
 }
 
+void RunFrameworkUnitTests()
+{
+    std::string testLogPath = "Data/SKSE/Plugins/CWFramework_UnitTest.log";
+    std::ofstream testLog(testLogPath, std::ios::out | std::ios::trunc);
+    if (!testLog.is_open()) return;
+
+    testLog << "=====================================================\n";
+    testLog << "   CARDINAL WEAPONS FRAMEWORK AUTOMATED UNIT TESTS   \n";
+    testLog << "=====================================================\n\n";
+
+    int totalTests = 0;
+    int passedTests = 0;
+
+    auto RunTest = [&](const std::string& name, std::function<bool()> testFunc) {
+        totalTests++;
+        testLog << "[TEST #" << totalTests << "] " << name << " ... ";
+        try {
+            bool ok = testFunc();
+            if (ok) {
+                passedTests++;
+                testLog << "PASSED\n";
+            } else {
+                testLog << "FAILED\n";
+            }
+        } catch (const std::exception& e) {
+            testLog << "EXCEPTION: " << e.what() << "\n";
+        }
+    };
+
+    // Test 1: Native Plugin Version & Framework Readiness
+    RunTest("PublicAPI Readiness & Version Check", []() {
+        if (!CWFramework::PublicAPI::IsFrameworkReady()) return false;
+        std::string ver = CWFramework::PublicAPI::GetVersion();
+        return ver == "1.0.0";
+    });
+
+    // Test 2: Registry Singleton & Base Form Registration
+    RunTest("Weapon Type Registry Pre-Registration", []() {
+        auto types = CWFramework::Registry::GetInstance().GetAllWeaponTypes();
+        bool hasShield = false;
+        for (const auto& t : types) {
+            if (t.id == "CW_WT_SHIELD") hasShield = true;
+        }
+        return hasShield;
+    });
+
+    // Test 3: Save API Initial Lock State
+    RunTest("SaveManager Initial Unlocked State", []() {
+        return !CWFramework::SaveManager::GetInstance().IsWeaponLocked();
+    });
+
+    // Test 4: Legendary Weapon Selection Lifecycle
+    RunTest("LegendaryWeaponManager Initiate & Confirm Choice", []() {
+        bool initOk = CWFramework::LegendaryWeaponManager::GetInstance().InitiateWeaponSelection("CW_WT_SHIELD");
+        if (!initOk) return false;
+        bool confirmOk = CWFramework::LegendaryWeaponManager::GetInstance().ConfirmWeaponChoice("CW_WT_SHIELD");
+        if (!confirmOk) return false;
+        bool isLockedNow = CWFramework::SaveManager::GetInstance().IsWeaponLocked();
+        std::string activeForm = CWFramework::SaveManager::GetInstance().GetChosenWeaponTypeId();
+        
+        // Reset state for game runtime testing
+        CWFramework::SaveManager::GetInstance().ResetSaveState();
+        return isLockedNow && activeForm == "CW_WT_SHIELD";
+    });
+
+    // Test 5: Plugin ESP Binary Record File Verification
+    RunTest("CardinalWeaponsFramework.esp File Existence & Header Check", []() {
+        std::ifstream esp("Data/CardinalWeaponsFramework.esp", std::ios::binary);
+        if (!esp.is_open()) return false;
+        char header[4];
+        esp.read(header, 4);
+        esp.close();
+        return std::string(header, 4) == "TES4";
+    });
+
+    testLog << "\n=====================================================\n";
+    testLog << "  SUMMARY: " << passedTests << " / " << totalTests << " TESTS PASSED (" << (passedTests * 100 / totalTests) << "% SUCCESS)\n";
+    testLog << "=====================================================\n";
+    testLog.close();
+}
+
 // SKSE Plugin Load Entry Point Export
 extern "C" __declspec(dllexport) bool SKSEAPI SKSEPlugin_Load(const void* a_skse)
 {
@@ -180,6 +261,9 @@ extern "C" __declspec(dllexport) bool SKSEAPI SKSEPlugin_Load(const void* a_skse
     {
         return false;
     }
+
+    // Run Automated Unit Tests on Startup
+    RunFrameworkUnitTests();
 
     // Perform Stage 1 Load-Time Content Validation
     CWFramework::ContentValidationEngine::GetInstance().ValidateRegisteredContentPackData();

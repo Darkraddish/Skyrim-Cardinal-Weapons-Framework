@@ -24,7 +24,15 @@ Function AutoStart()
             Debug.Trace("[CWFramework] Started CW_AwakeningQuest.")
         endif
     endif
-    CheckTalosBlessing()
+    
+    Actor p = Game.GetPlayer()
+    if p && !CWFramework_SaveAPI.IsWeaponLocked()
+        if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) == 0
+            p.AddItem(CW_CardinalLegendBook, 1, false)
+            Debug.Trace("[CWFramework] Placed 'The Legend of the Four Cardinal Weapons' in player inventory on game load.")
+            Debug.Notification("The Shrine of Talos has granted you 'The Legend of the Four Cardinal Weapons'!")
+        endif
+    endif
 EndFunction
 
 bool Function PlayerHasTalosBlessing(Actor p)
@@ -60,19 +68,6 @@ bool Function PlayerHasTalosBlessing(Actor p)
     return false
 EndFunction
 
-Function CheckTalosBlessing()
-    Actor p = Game.GetPlayer()
-    if p && !CWFramework_SaveAPI.IsWeaponLocked()
-        if PlayerHasTalosBlessing(p)
-            if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) == 0
-                p.AddItem(CW_CardinalLegendBook, 1, false)
-                Debug.Trace("[CWFramework] Granted 'The Legend of the Four Cardinal Weapons' to player inventory.")
-                Debug.Notification("You have worshipped the Shrine of Talos! 'The Legend of the Four Cardinal Weapons' has been placed in your inventory.")
-            endif
-        endif
-    endif
-EndFunction
-
 event OnKeyDown(int keyCode)
     if keyCode == 24 ; 'O' key
         Debug.Trace("[CWFramework] Key 'O' pressed in Quest AutoStartScript.")
@@ -83,11 +78,12 @@ event OnKeyDown(int keyCode)
         else
             Actor p = Game.GetPlayer()
             if p
-                CheckTalosBlessing()
+                if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) == 0
+                    p.AddItem(CW_CardinalLegendBook, 1, false)
+                    Debug.Notification("The Shrine of Talos has granted you 'The Legend of the Four Cardinal Weapons'!")
+                endif
                 if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) > 0
                     Debug.Notification("Read 'The Legend of the Four Cardinal Weapons' in your inventory to awaken your weapon.")
-                else
-                    Debug.Notification("You must pray at a Shrine of Talos to receive 'The Legend of the Four Cardinal Weapons'.")
                 endif
             endif
         endif
@@ -97,5 +93,5 @@ endEvent
 event OnUpdate()
     RegisterForKey(24) ; 'O' key
     RegisterForSingleUpdate(1.0)
-    CheckTalosBlessing()
+    AutoStart()
 endEvent

@@ -13,11 +13,15 @@ namespace CWFramework
             return false;
         }
 
-        // Verify weapon type exists in Registry
+        // Verify weapon type exists in Registry or auto-register standard default
         auto wtOpt = Registry::GetInstance().GetWeaponType(weaponTypeId);
         if (!wtOpt.has_value())
         {
-            return false;
+            WeaponTypeData fallback;
+            fallback.id = weaponTypeId;
+            fallback.name = weaponTypeId;
+            fallback.description = "Cardinal Weapon Type";
+            Registry::GetInstance().RegisterWeaponType(fallback);
         }
 
         std::unique_lock lock(m_mutex);

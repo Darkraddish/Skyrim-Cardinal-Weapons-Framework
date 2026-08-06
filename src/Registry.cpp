@@ -3,6 +3,33 @@
 
 namespace CWFramework
 {
+    Registry::Registry()
+    {
+        WeaponTypeData shieldType;
+        shieldType.id = "CW_WT_SHIELD";
+        shieldType.name = "Cardinal Shield";
+        shieldType.description = "The immovable fortress of the legendary cardinal heroes.";
+        m_weaponTypes[shieldType.id] = shieldType;
+
+        WeaponTypeData swordType;
+        swordType.id = "CW_WT_SWORD";
+        swordType.name = "Cardinal Sword";
+        swordType.description = "The unyielding blade of the legendary cardinal heroes.";
+        m_weaponTypes[swordType.id] = swordType;
+
+        WeaponTypeData spearType;
+        spearType.id = "CW_WT_SPEAR";
+        spearType.name = "Cardinal Spear";
+        spearType.description = "The piercing lance of the legendary cardinal heroes.";
+        m_weaponTypes[spearType.id] = spearType;
+
+        WeaponTypeData bowType;
+        bowType.id = "CW_WT_BOW";
+        bowType.name = "Cardinal Bow";
+        bowType.description = "The swift marksmanship of the legendary cardinal heroes.";
+        m_weaponTypes[bowType.id] = bowType;
+    }
+
     bool Registry::RegisterWeaponType(const WeaponTypeData& data)
     {
         if (data.id.empty()) return false;

@@ -55,7 +55,7 @@ namespace CWFramework
         void Clear();
 
     private:
-        Registry() = default;
+        Registry();
         ~Registry() = default;
         Registry(const Registry&) = delete;
         Registry& operator=(const Registry&) = delete;

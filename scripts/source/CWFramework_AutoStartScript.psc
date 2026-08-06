@@ -1,44 +1,33 @@
-ScriptName CWFramework_PlayerTalosListener extends ReferenceAlias
+ScriptName CWFramework_AutoStartScript extends Quest
 
 Book Property CW_CardinalLegendBook Auto
 Quest Property CW_AwakeningQuest Auto
 
 event OnInit()
-    Debug.Trace("[CWFramework] CWFramework_PlayerTalosListener Initialized on PlayerRef Alias.")
+    Debug.Trace("[CWFramework] CWFramework_AutoStartScript Quest OnInit fired!")
     RegisterForSingleUpdate(1.0)
     RegisterForKey(24) ; 'O' key
-    ForceInitQuests()
-    CheckForTalosBlessing()
+    AutoStart()
 endEvent
 
 event OnPlayerLoadGame()
-    Debug.Trace("[CWFramework] CWFramework_PlayerTalosListener OnPlayerLoadGame event fired.")
+    Debug.Trace("[CWFramework] CWFramework_AutoStartScript Quest OnPlayerLoadGame fired!")
     RegisterForSingleUpdate(1.0)
     RegisterForKey(24) ; 'O' key
-    ForceInitQuests()
-    CheckForTalosBlessing()
+    AutoStart()
 endEvent
 
-Function ForceInitQuests()
+Function AutoStart()
     if CW_AwakeningQuest
         if !CW_AwakeningQuest.IsRunning()
             CW_AwakeningQuest.Start()
-            Debug.Trace("[CWFramework] Force-started CW_AwakeningQuest on save load.")
+            Debug.Trace("[CWFramework] Started CW_AwakeningQuest.")
         endif
     endif
+    CheckTalosBlessing()
 EndFunction
 
-event OnSpellAdded(Spell akSpell)
-    if akSpell
-        Debug.Trace("[CWFramework] Spell Added to Player: " + akSpell.GetName())
-        string sName = akSpell.GetName()
-        if sName == "Blessing of Talos" || akSpell.HasKeywordString("BlessingTalos")
-            GiveBookToPlayer()
-        endif
-    endif
-endEvent
-
-Function CheckForTalosBlessing()
+Function CheckTalosBlessing()
     Actor p = Game.GetPlayer()
     if p && !CWFramework_SaveAPI.IsWeaponLocked()
         MagicEffect e1 = Game.GetForm(0x000FB992) as MagicEffect
@@ -51,32 +40,19 @@ Function CheckForTalosBlessing()
         endif
         
         if hasTalos
-            Debug.Trace("[CWFramework] Active Blessing of Talos detected on player!")
-            GiveBookToPlayer()
-        endif
-    endif
-EndFunction
-
-Function GiveBookToPlayer()
-    if CWFramework_SaveAPI.IsWeaponLocked()
-        return
-    endif
-    
-    Actor p = Game.GetPlayer()
-    if p && CW_CardinalLegendBook
-        if p.GetItemCount(CW_CardinalLegendBook) == 0
-            p.AddItem(CW_CardinalLegendBook, 1, false)
-            Debug.Trace("[CWFramework] Placed 'The Legend of the Four Cardinal Weapons' in player inventory.")
-            Debug.Notification("You have worshipped the Shrine of Talos! 'The Legend of the Four Cardinal Weapons' has been placed in your inventory.")
+            if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) == 0
+                p.AddItem(CW_CardinalLegendBook, 1, false)
+                Debug.Trace("[CWFramework] Granted 'The Legend of the Four Cardinal Weapons' to player inventory.")
+                Debug.Notification("You have worshipped the Shrine of Talos! 'The Legend of the Four Cardinal Weapons' has been placed in your inventory.")
+            endif
         endif
     endif
 EndFunction
 
 event OnKeyDown(int keyCode)
     if keyCode == 24 ; 'O' key
-        Debug.Trace("[CWFramework] Key 'O' pressed down.")
+        Debug.Trace("[CWFramework] Key 'O' pressed in Quest AutoStartScript.")
         if CWFramework_SaveAPI.IsWeaponLocked()
-            Debug.Trace("[CWFramework] Weapon is locked. Opening Cardinal Weapon Menu...")
             if CW_AwakeningQuest
                 (CW_AwakeningQuest as CWFramework_TalosAwakeningQuest).OpenCardinalWeaponMenu()
             endif
@@ -96,5 +72,5 @@ endEvent
 event OnUpdate()
     RegisterForKey(24) ; 'O' key
     RegisterForSingleUpdate(2.0)
-    CheckForTalosBlessing()
+    CheckTalosBlessing()
 endEvent

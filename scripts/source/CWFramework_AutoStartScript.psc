@@ -27,19 +27,43 @@ Function AutoStart()
     CheckTalosBlessing()
 EndFunction
 
+bool Function PlayerHasTalosBlessing(Actor p)
+    if !p
+        return false
+    endif
+    
+    MagicEffect e1 = Game.GetForm(0x000FB992) as MagicEffect
+    MagicEffect e2 = Game.GetForm(0x000E0CFC) as MagicEffect
+    if (e1 && p.HasMagicEffect(e1)) || (e2 && p.HasMagicEffect(e2))
+        return true
+    endif
+
+    Spell s1 = Game.GetForm(0x000FB988) as Spell
+    Spell s2 = Game.GetForm(0x000E0CFB) as Spell
+    Spell s3 = Game.GetForm(0x0010E869) as Spell
+    if (s1 && p.HasSpell(s1)) || (s2 && p.HasSpell(s2)) || (s3 && p.HasSpell(s3))
+        return true
+    endif
+
+    int i = p.GetSpellCount()
+    while i > 0
+        i -= 1
+        Spell sp = p.GetNthSpell(i)
+        if sp
+            string n = sp.GetName()
+            if n == "Blessing of Talos" || n == "Shrine of Talos" || sp.HasKeywordString("BlessingTalos") || sp.HasKeywordString("ShrineTalos")
+                return true
+            endif
+        endif
+    endWhile
+
+    return false
+EndFunction
+
 Function CheckTalosBlessing()
     Actor p = Game.GetPlayer()
     if p && !CWFramework_SaveAPI.IsWeaponLocked()
-        MagicEffect e1 = Game.GetForm(0x000FB992) as MagicEffect
-        Spell s1 = Game.GetForm(0x000FB988) as Spell
-        Spell s2 = Game.GetForm(0x000E0CFB) as Spell
-        
-        bool hasTalos = false
-        if (e1 && p.HasMagicEffect(e1)) || (s1 && p.HasSpell(s1)) || (s2 && p.HasSpell(s2))
-            hasTalos = true
-        endif
-        
-        if hasTalos
+        if PlayerHasTalosBlessing(p)
             if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) == 0
                 p.AddItem(CW_CardinalLegendBook, 1, false)
                 Debug.Trace("[CWFramework] Granted 'The Legend of the Four Cardinal Weapons' to player inventory.")
@@ -59,6 +83,7 @@ event OnKeyDown(int keyCode)
         else
             Actor p = Game.GetPlayer()
             if p
+                CheckTalosBlessing()
                 if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) > 0
                     Debug.Notification("Read 'The Legend of the Four Cardinal Weapons' in your inventory to awaken your weapon.")
                 else
@@ -71,6 +96,6 @@ endEvent
 
 event OnUpdate()
     RegisterForKey(24) ; 'O' key
-    RegisterForSingleUpdate(2.0)
+    RegisterForSingleUpdate(1.0)
     CheckTalosBlessing()
 endEvent

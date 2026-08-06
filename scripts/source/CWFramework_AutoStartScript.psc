@@ -27,7 +27,6 @@ Function PlaceBookInFarengarCupboard()
     endif
 
     if PlacedCupboardRef == None
-        ; Cupboard container reference in Dragonsreach wizard room
         ObjectReference cupboard = Game.GetForm(0x0006B709) as ObjectReference
         if cupboard == None
             cupboard = Game.GetForm(0x0006B70A) as ObjectReference
@@ -51,35 +50,13 @@ Function AutoStart()
             Debug.Trace("[CWFramework] Started CW_AwakeningQuest.")
         endif
     endif
-    
-    Actor p = Game.GetPlayer()
-    if p && !CWFramework_SaveAPI.IsWeaponLocked()
-        if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) == 0
-            p.AddItem(CW_CardinalLegendBook, 1, false)
-            Debug.Trace("[CWFramework] Placed 'The Legend of the Four Cardinal Weapons' in player inventory on game load.")
-            Debug.Notification("The Shrine of Talos has granted you 'The Legend of the Four Cardinal Weapons'!")
-        endif
-    endif
 EndFunction
 
 event OnKeyDown(int keyCode)
     if keyCode == 24 ; 'O' key
         Debug.Trace("[CWFramework] Key 'O' pressed in Quest AutoStartScript.")
-        if CWFramework_SaveAPI.IsWeaponLocked()
-            if CW_AwakeningQuest
-                (CW_AwakeningQuest as CWFramework_TalosAwakeningQuest).OpenCardinalWeaponMenu()
-            endif
-        else
-            Actor p = Game.GetPlayer()
-            if p
-                if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) == 0
-                    p.AddItem(CW_CardinalLegendBook, 1, false)
-                    Debug.Notification("The Shrine of Talos has granted you 'The Legend of the Four Cardinal Weapons'!")
-                endif
-                if CW_CardinalLegendBook && p.GetItemCount(CW_CardinalLegendBook) > 0
-                    Debug.Notification("Read 'The Legend of the Four Cardinal Weapons' in your inventory to awaken your weapon.")
-                endif
-            endif
+        if CW_AwakeningQuest
+            (CW_AwakeningQuest as CWFramework_TalosAwakeningQuest).OpenCardinalWeaponMenu()
         endif
     endif
 endEvent

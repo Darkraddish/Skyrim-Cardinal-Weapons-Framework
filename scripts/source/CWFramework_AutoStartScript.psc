@@ -3,14 +3,14 @@ ScriptName CWFramework_AutoStartScript extends Quest
 Book Property CW_CardinalLegendBook Auto
 Quest Property CW_AwakeningQuest Auto
 
-ObjectReference Property PlacedBookRef Auto Hidden
+ObjectReference Property PlacedCupboardRef Auto Hidden
 
 event OnInit()
     Debug.Trace("[CWFramework] CWFramework_AutoStartScript Quest OnInit fired!")
     RegisterForSingleUpdate(1.0)
     RegisterForKey(24) ; 'O' key
     AutoStart()
-    PlaceBookInDragonsreach()
+    PlaceBookInFarengarCupboard()
 endEvent
 
 event OnPlayerLoadGame()
@@ -18,27 +18,28 @@ event OnPlayerLoadGame()
     RegisterForSingleUpdate(1.0)
     RegisterForKey(24) ; 'O' key
     AutoStart()
-    PlaceBookInDragonsreach()
+    PlaceBookInFarengarCupboard()
 endEvent
 
-Function PlaceBookInDragonsreach()
+Function PlaceBookInFarengarCupboard()
     if CWFramework_SaveAPI.IsWeaponLocked()
         return
     endif
 
-    if PlacedBookRef == None
-        ; Cell 0x000165A7 is Whiterun Dragonsreach interior
-        ObjectReference dragonsreachRef = Game.GetForm(0x000165A7) as ObjectReference
-        Actor p = Game.GetPlayer()
-        if p && CW_CardinalLegendBook
-            ; Spawn book right on top of Farengar's alchemy table in Dragonsreach
-            PlacedBookRef = p.PlaceAtMe(CW_CardinalLegendBook, 1, false, true)
-            if PlacedBookRef
-                PlacedBookRef.SetPosition(-760.0, -1150.0, -90.0)
-                PlacedBookRef.SetAngle(0.0, 0.0, 45.0)
-                PlacedBookRef.Enable(false)
-                Debug.Trace("[CWFramework] Successfully placed 'The Legend of the Four Cardinal Weapons' on Farengar's Alchemy Table in Dragonsreach!")
-            endif
+    if PlacedCupboardRef == None
+        ; Cupboard container reference in Dragonsreach wizard room
+        ObjectReference cupboard = Game.GetForm(0x0006B709) as ObjectReference
+        if cupboard == None
+            cupboard = Game.GetForm(0x0006B70A) as ObjectReference
+        endif
+        if cupboard == None
+            cupboard = Game.GetForm(0x0006B70B) as ObjectReference
+        endif
+        
+        if cupboard && CW_CardinalLegendBook
+            cupboard.AddItem(CW_CardinalLegendBook, 1, false)
+            PlacedCupboardRef = cupboard
+            Debug.Trace("[CWFramework] Successfully placed 'The Legend of the Four Cardinal Weapons' inside Farengar's Cupboard in Dragonsreach!")
         endif
     endif
 EndFunction
@@ -87,5 +88,5 @@ event OnUpdate()
     RegisterForKey(24) ; 'O' key
     RegisterForSingleUpdate(1.0)
     AutoStart()
-    PlaceBookInDragonsreach()
+    PlaceBookInFarengarCupboard()
 endEvent

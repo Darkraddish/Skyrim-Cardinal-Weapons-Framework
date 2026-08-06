@@ -40,7 +40,7 @@ Function OnBookRead()
             p.AddItem(CW_StarterShieldItem, 1, false)
             p.EquipItem(CW_StarterShieldItem, false, false)
         endif
-        Debug.Notification("Your Cardinal Weapon has awakened! Press 'P' to open the Cardinal Weapon Menu.")
+        Debug.Notification("Your Cardinal Weapon has awakened! Press 'O' to open the Cardinal Weapon Menu.")
         SetStage(100)
         CompleteQuest()
     endif

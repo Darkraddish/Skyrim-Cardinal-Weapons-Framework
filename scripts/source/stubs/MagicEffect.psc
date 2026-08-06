@@ -1,4 +1,5 @@
-Scriptname MagicEffect extends Form Hidden
+ScriptName MagicEffect extends Form hidden
 
-string Function GetName() Native
-bool Function HasKeywordString(string asKeyword) Native
+string Function GetName()
+    return ""
+EndFunction

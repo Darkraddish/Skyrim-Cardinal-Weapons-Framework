@@ -1,10 +1,31 @@
-Scriptname Quest extends Form Hidden
+ScriptName Quest extends Form hidden
 
-bool Function SetStage(int aiStage) Native
-int Function GetStage() Native
-bool Function SetCurrentStageID(int aiStageID) Native
-bool Function SetActive(bool abActive = true) Native
-Function CompleteQuest() Native
-bool Function IsRunning() Native
-bool Function Start() Native
-Function Stop() Native
+Function Start()
+EndFunction
+
+Function Stop()
+EndFunction
+
+bool Function IsRunning()
+    return false
+EndFunction
+
+int Function SetCurrentStageID(int aiStageID)
+    return 0
+EndFunction
+
+bool Function SetStage(int aiStageID)
+    return false
+EndFunction
+
+Function SetActive(bool abActive = true)
+EndFunction
+
+Function CompleteQuest()
+EndFunction
+
+Function RegisterForSingleUpdate(float afInterval)
+EndFunction
+
+Function RegisterForKey(int aiKeyCode)
+EndFunction

@@ -1,4 +1,9 @@
-Scriptname Game Hidden
+ScriptName Game hidden
 
-Actor Function GetPlayer() Native Global
-Form Function GetFormFromFile(int aiFormID, string asPluginName) Native Global
+Actor Function GetPlayer() global
+    return None
+EndFunction
+
+Form Function GetForm(int aiFormID) global
+    return None
+EndFunction

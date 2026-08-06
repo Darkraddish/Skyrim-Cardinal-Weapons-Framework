@@ -86,7 +86,10 @@ namespace
                 }
                 else
                 {
-                    LogDiagnostic("Pre-awakening key 'O' pressed. Weapon not awakened yet. Player must read 'The Legend of the Four Cardinal Weapons'.");
+                    LogDiagnostic("Pre-awakening key 'O' pressed. Auto-awakening default Cardinal Shield and opening menu...");
+                    CWFramework::LegendaryWeaponManager::GetInstance().InitiateWeaponSelection("CW_WT_SHIELD");
+                    CWFramework::LegendaryWeaponManager::GetInstance().ConfirmWeaponChoice("CW_WT_SHIELD");
+                    CWFramework::CardinalTreeUIManager::GetInstance().OpenCardinalTreeMenu();
                 }
             }
             oWasDown = oIsDown;

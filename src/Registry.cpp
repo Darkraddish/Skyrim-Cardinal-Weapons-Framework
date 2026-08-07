@@ -5,72 +5,113 @@
 #include <iostream>
 #include <filesystem>
 
+#if __has_include(<nlohmann/json.hpp>)
+#include <nlohmann/json.hpp>
+#define CW_HAS_NLOHMANN_JSON 1
+using json = nlohmann::json;
+#else
+#define CW_HAS_NLOHMANN_JSON 0
+#endif
+
 namespace CWFramework
 {
-    namespace
-    {
-        std::string ExtractJsonField(const std::string& item, const std::string& key)
-        {
-            std::string searchKey = "\"" + key + "\":";
-            auto pos = item.find(searchKey);
-            if (pos == std::string::npos) return "";
-            pos += searchKey.length();
-            while (pos < item.length() && (item[pos] == ' ' || item[pos] == '\t' || item[pos] == '\r' || item[pos] == '\n')) pos++;
-            if (pos < item.length() && item[pos] == '"')
-            {
-                pos++;
-                auto endPos = item.find('"', pos);
-                if (endPos != std::string::npos)
-                {
-                    return item.substr(pos, endPos - pos);
-                }
-            }
-            return "";
-        }
-
-        std::vector<std::string> SplitJsonArrayObjects(const std::string& content)
-        {
-            std::vector<std::string> objects;
-            bool inObj = false;
-            int depth = 0;
-            std::string current;
-            for (char c : content)
-            {
-                if (c == '{')
-                {
-                    depth++;
-                    inObj = true;
-                }
-                if (inObj) current += c;
-                if (c == '}')
-                {
-                    depth--;
-                    if (depth == 0)
-                    {
-                        objects.push_back(current);
-                        current.clear();
-                        inObj = false;
-                    }
-                }
-            }
-            return objects;
-        }
-    }
-
     bool Registry::LoadContentPacksFromDirectory(const std::string& directoryPath)
     {
         if (!std::filesystem::exists(directoryPath)) return false;
 
-        // Load weapon_types.json
+#if CW_HAS_NLOHMANN_JSON
+        // Load weapon_types.json using nlohmann::json
         std::string wtPath = directoryPath + "/weapon_types.json";
         std::ifstream wtFile(wtPath);
         if (wtFile.is_open())
         {
-            std::stringstream buffer;
-            buffer << wtFile.rdbuf();
-            auto objects = SplitJsonArrayObjects(buffer.str());
-            for (const auto& obj : objects)
-            {
+            try {
+                json data = json::parse(wtFile);
+                for (const auto& item : data) {
+                    WeaponTypeData wt;
+                    wt.id = item.value("id", "");
+                    wt.name = item.value("name", "");
+                    wt.description = item.value("description", "");
+                    wt.iconAsset = item.value("iconAsset", "");
+                    if (!wt.id.empty()) RegisterWeaponType(wt);
+                }
+            } catch (...) {}
+        }
+
+        // Load series.json using nlohmann::json
+        std::string serPath = directoryPath + "/series.json";
+        std::ifstream serFile(serPath);
+        if (serFile.is_open())
+        {
+            try {
+                json data = json::parse(serFile);
+                for (const auto& item : data) {
+                    SeriesData s;
+                    s.id = item.value("id", "");
+                    s.weaponTypeId = item.value("weaponTypeId", "");
+                    s.name = item.value("name", "");
+                    s.description = item.value("description", "");
+                    s.iconAsset = item.value("iconAsset", "");
+                    if (!s.id.empty()) RegisterSeries(s);
+                }
+            } catch (...) {}
+        }
+
+        // Load weapon_forms.json using nlohmann::json
+        std::string formPath = directoryPath + "/weapon_forms.json";
+        std::ifstream formFile(formPath);
+        if (formFile.is_open())
+        {
+            try {
+                json data = json::parse(formFile);
+                for (const auto& item : data) {
+                    WeaponFormData f;
+                    f.id = item.value("id", "");
+                    f.seriesId = item.value("seriesId", "");
+                    f.name = item.value("name", "");
+                    f.description = item.value("description", "");
+                    f.modelAsset = item.value("modelAsset", "");
+                    if (!f.id.empty()) RegisterWeaponForm(f);
+                }
+            } catch (...) {}
+        }
+#else
+        // Helper string parser fallback when nlohmann/json is not compiled
+        auto ExtractJsonField = [](const std::string& item, const std::string& key) {
+            std::string searchKey = "\"" + key + "\":";
+            auto pos = item.find(searchKey);
+            if (pos == std::string::npos) return std::string("");
+            pos += searchKey.length();
+            while (pos < item.length() && (item[pos] == ' ' || item[pos] == '\t' || item[pos] == '\r' || item[pos] == '\n')) pos++;
+            if (pos < item.length() && item[pos] == '"') {
+                pos++;
+                auto endPos = item.find('"', pos);
+                if (endPos != std::string::npos) return item.substr(pos, endPos - pos);
+            }
+            return std::string("");
+        };
+
+        auto SplitObjects = [](const std::string& content) {
+            std::vector<std::string> objects;
+            bool inObj = false;
+            int depth = 0;
+            std::string current;
+            for (char c : content) {
+                if (c == '{') { depth++; inObj = true; }
+                if (inObj) current += c;
+                if (c == '}') {
+                    depth--;
+                    if (depth == 0) { objects.push_back(current); current.clear(); inObj = false; }
+                }
+            }
+            return objects;
+        };
+
+        std::string wtPath = directoryPath + "/weapon_types.json";
+        std::ifstream wtFile(wtPath);
+        if (wtFile.is_open()) {
+            std::stringstream buffer; buffer << wtFile.rdbuf();
+            for (const auto& obj : SplitObjects(buffer.str())) {
                 WeaponTypeData wt;
                 wt.id = ExtractJsonField(obj, "id");
                 wt.name = ExtractJsonField(obj, "name");
@@ -80,16 +121,11 @@ namespace CWFramework
             }
         }
 
-        // Load series.json
         std::string serPath = directoryPath + "/series.json";
         std::ifstream serFile(serPath);
-        if (serFile.is_open())
-        {
-            std::stringstream buffer;
-            buffer << serFile.rdbuf();
-            auto objects = SplitJsonArrayObjects(buffer.str());
-            for (const auto& obj : objects)
-            {
+        if (serFile.is_open()) {
+            std::stringstream buffer; buffer << serFile.rdbuf();
+            for (const auto& obj : SplitObjects(buffer.str())) {
                 SeriesData s;
                 s.id = ExtractJsonField(obj, "id");
                 s.weaponTypeId = ExtractJsonField(obj, "weaponTypeId");
@@ -100,16 +136,11 @@ namespace CWFramework
             }
         }
 
-        // Load weapon_forms.json
         std::string formPath = directoryPath + "/weapon_forms.json";
         std::ifstream formFile(formPath);
-        if (formFile.is_open())
-        {
-            std::stringstream buffer;
-            buffer << formFile.rdbuf();
-            auto objects = SplitJsonArrayObjects(buffer.str());
-            for (const auto& obj : objects)
-            {
+        if (formFile.is_open()) {
+            std::stringstream buffer; buffer << formFile.rdbuf();
+            for (const auto& obj : SplitObjects(buffer.str())) {
                 WeaponFormData f;
                 f.id = ExtractJsonField(obj, "id");
                 f.seriesId = ExtractJsonField(obj, "seriesId");
@@ -119,6 +150,7 @@ namespace CWFramework
                 if (!f.id.empty()) RegisterWeaponForm(f);
             }
         }
+#endif
 
         return true;
     }

@@ -17,11 +17,11 @@ EndFunction
 Int Function GetRequirementProgress(String asReqId)
     ; Returns current player count/progress towards requirement (e.g. 7 in 7/10)
     Return 0
-EndInt
+EndFunction
 
 Int Function GetRequirementTargetAmount(String asReqId)
     ; Returns required target amount (e.g. 10 in 7/10)
     Return 0
-EndInt
+EndFunction
 
 ; TODO(Phase 3): Wire SKSE native bindings for requirement data lookups

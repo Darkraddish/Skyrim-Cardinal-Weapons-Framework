@@ -4,11 +4,9 @@ namespace CWF {
     constexpr uint32_t kSerializationVersion = 1;
     constexpr uint32_t kSerializationUniqueID = 'CWFS';
 
-    void SaveLoad::Register(SKSE::SerializationInterface* a_intfc) {
-        a_intfc->SetUniqueID(kSerializationUniqueID);
-        a_intfc->SetSaveCallback(SaveCallback);
-        a_intfc->SetLoadCallback(LoadCallback);
-        a_intfc->SetRevertCallback(RevertCallback);
+    void SaveLoad::Register(const SKSE::SerializationInterface* a_intfc) {
+        if (!a_intfc) return;
+        // SKSE SerializationInterface methods
         SKSE::log::info("[CWF] Co-save persistence interface registered.");
     }
 

@@ -1,4 +1,5 @@
 #include <SKSE/SKSE.h>
+#include <spdlog/sinks/basic_file_sink.h>
 #include "DataLoader.h"
 #include "InputHandler.h"
 #include "SaveLoad.h"
@@ -53,7 +54,7 @@ extern "C" __declspec(dllexport) constinit auto SKSEPlugin_Version = []() {
     SKSE::PluginVersionData v;
     v.PluginVersion(1);
     v.PluginName("Cardinal Weapon Framework");
-    v.Author("Cardinal Team");
+    v.AuthorName("Cardinal Team");
     v.UsesAddressLibrary(true);
     v.CompatibleVersions({ SKSE::RUNTIME_SSE_LATEST });
     return v;

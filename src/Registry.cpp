@@ -1,11 +1,132 @@
 #include "CWFramework/Registry.h"
 #include <mutex>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <filesystem>
 
 namespace CWFramework
 {
+    namespace
+    {
+        std::string ExtractJsonField(const std::string& item, const std::string& key)
+        {
+            std::string searchKey = "\"" + key + "\":";
+            auto pos = item.find(searchKey);
+            if (pos == std::string::npos) return "";
+            pos += searchKey.length();
+            while (pos < item.length() && (item[pos] == ' ' || item[pos] == '\t' || item[pos] == '\r' || item[pos] == '\n')) pos++;
+            if (pos < item.length() && item[pos] == '"')
+            {
+                pos++;
+                auto endPos = item.find('"', pos);
+                if (endPos != std::string::npos)
+                {
+                    return item.substr(pos, endPos - pos);
+                }
+            }
+            return "";
+        }
+
+        std::vector<std::string> SplitJsonArrayObjects(const std::string& content)
+        {
+            std::vector<std::string> objects;
+            bool inObj = false;
+            int depth = 0;
+            std::string current;
+            for (char c : content)
+            {
+                if (c == '{')
+                {
+                    depth++;
+                    inObj = true;
+                }
+                if (inObj) current += c;
+                if (c == '}')
+                {
+                    depth--;
+                    if (depth == 0)
+                    {
+                        objects.push_back(current);
+                        current.clear();
+                        inObj = false;
+                    }
+                }
+            }
+            return objects;
+        }
+    }
+
+    bool Registry::LoadContentPacksFromDirectory(const std::string& directoryPath)
+    {
+        if (!std::filesystem::exists(directoryPath)) return false;
+
+        // Load weapon_types.json
+        std::string wtPath = directoryPath + "/weapon_types.json";
+        std::ifstream wtFile(wtPath);
+        if (wtFile.is_open())
+        {
+            std::stringstream buffer;
+            buffer << wtFile.rdbuf();
+            auto objects = SplitJsonArrayObjects(buffer.str());
+            for (const auto& obj : objects)
+            {
+                WeaponTypeData wt;
+                wt.id = ExtractJsonField(obj, "id");
+                wt.name = ExtractJsonField(obj, "name");
+                wt.description = ExtractJsonField(obj, "description");
+                wt.iconAsset = ExtractJsonField(obj, "iconAsset");
+                if (!wt.id.empty()) RegisterWeaponType(wt);
+            }
+        }
+
+        // Load series.json
+        std::string serPath = directoryPath + "/series.json";
+        std::ifstream serFile(serPath);
+        if (serFile.is_open())
+        {
+            std::stringstream buffer;
+            buffer << serFile.rdbuf();
+            auto objects = SplitJsonArrayObjects(buffer.str());
+            for (const auto& obj : objects)
+            {
+                SeriesData s;
+                s.id = ExtractJsonField(obj, "id");
+                s.weaponTypeId = ExtractJsonField(obj, "weaponTypeId");
+                s.name = ExtractJsonField(obj, "name");
+                s.description = ExtractJsonField(obj, "description");
+                s.iconAsset = ExtractJsonField(obj, "iconAsset");
+                if (!s.id.empty()) RegisterSeries(s);
+            }
+        }
+
+        // Load weapon_forms.json
+        std::string formPath = directoryPath + "/weapon_forms.json";
+        std::ifstream formFile(formPath);
+        if (formFile.is_open())
+        {
+            std::stringstream buffer;
+            buffer << formFile.rdbuf();
+            auto objects = SplitJsonArrayObjects(buffer.str());
+            for (const auto& obj : objects)
+            {
+                WeaponFormData f;
+                f.id = ExtractJsonField(obj, "id");
+                f.seriesId = ExtractJsonField(obj, "seriesId");
+                f.name = ExtractJsonField(obj, "name");
+                f.description = ExtractJsonField(obj, "description");
+                f.modelAsset = ExtractJsonField(obj, "modelAsset");
+                if (!f.id.empty()) RegisterWeaponForm(f);
+            }
+        }
+
+        return true;
+    }
+
     Registry::Registry()
     {
-        // Core framework initializes empty. Content packs register weapon types dynamically via RegisterWeaponType().
+        LoadContentPacksFromDirectory("content_packs/cardinal_heroes");
+        LoadContentPacksFromDirectory("Data/SKSE/Plugins/CWFramework/content_packs/cardinal_heroes");
     }
 
     bool Registry::RegisterWeaponType(const WeaponTypeData& data)

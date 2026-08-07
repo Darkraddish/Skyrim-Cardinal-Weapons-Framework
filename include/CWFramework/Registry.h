@@ -31,6 +31,7 @@ namespace CWFramework
         bool RegisterAbility(const AbilityData& data);
         bool RegisterEffect(const EffectData& data);
         bool RegisterRecipe(const RecipeData& data);
+        bool LoadContentPacksFromDirectory(const std::string& directoryPath);
 
         // Query APIs
         [[nodiscard]] std::optional<WeaponTypeData> GetWeaponType(const std::string& id) const;

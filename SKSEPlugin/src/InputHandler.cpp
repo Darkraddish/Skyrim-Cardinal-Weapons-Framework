@@ -18,13 +18,18 @@ namespace CWF {
     }
 
     RE::BSEventNotifyControl InputHandler::ProcessEvent(RE::InputEvent* const* a_event, RE::BSTEventSource<RE::InputEvent*>*) {
-        if (!a_event) {
+        if (!a_event || !*a_event) {
             return RE::BSEventNotifyControl::kContinue;
         }
 
         for (auto event = *a_event; event; event = event->next) {
-            if (auto button = event->AsButtonEvent()) {
-                if (button->IsDown() && button->GetIDCode() == 24) { // DXScanCode 24 ('O' key)
+            if (!event) {
+                continue;
+            }
+            
+            if (event->GetEventType() == RE::INPUT_EVENT_TYPE::kButton) {
+                auto button = event->AsButtonEvent();
+                if (button && button->IsDown() && button->GetIDCode() == 24) { // DXScanCode 24 ('O' key)
                     SKSE::log::info("[CWF] Hotkey 'O' pressed! Triggering menu notification...");
                     RE::DebugNotification("Cardinal Weapon Framework: Hotkey 'O' Pressed!");
                 }

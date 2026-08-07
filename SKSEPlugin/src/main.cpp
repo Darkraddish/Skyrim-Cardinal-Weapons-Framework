@@ -56,6 +56,7 @@ extern "C" __declspec(dllexport) constinit auto SKSEPlugin_Version = []() {
     v.PluginName("Cardinal Weapon Framework");
     v.AuthorName("Cardinal Team");
     v.UsesAddressLibrary(true);
-    v.CompatibleVersions({ SKSE::RUNTIME_SSE_LATEST });
+    v.UsesStructsPost629(true);
+    v.CompatibleVersions({});
     return v;
 }();

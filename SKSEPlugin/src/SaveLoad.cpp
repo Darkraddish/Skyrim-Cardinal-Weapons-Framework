@@ -6,7 +6,11 @@ namespace CWF {
 
     void SaveLoad::Register(const SKSE::SerializationInterface* a_intfc) {
         if (!a_intfc) return;
-        // SKSE SerializationInterface methods
+        auto intfc = const_cast<SKSE::SerializationInterface*>(a_intfc);
+        intfc->SetUniqueID(kSerializationUniqueID);
+        intfc->SetSaveCallback(SaveCallback);
+        intfc->SetLoadCallback(LoadCallback);
+        intfc->SetRevertCallback(RevertCallback);
         SKSE::log::info("[CWF] Co-save persistence interface registered.");
     }
 

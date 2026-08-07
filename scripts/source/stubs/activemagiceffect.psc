@@ -1,1 +1,0 @@
-Scriptname activemagiceffect extends Form Hidden

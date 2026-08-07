@@ -1,0 +1,46 @@
+[
+  {
+    "nodeId": "naofumi_small_shield_root",
+    "weaponType": "Shield",
+    "series": "Naofumi",
+    "formId": "naofumi_form_small_shield",
+    "parentNodeId": null,
+    "convertible": false,
+    "requirementIds": [],
+    "abilityIds": [],
+    "effectIds": [],
+    "state": "unlocked"
+  },
+  {
+    "nodeId": "naofumi_leaf_shield_node",
+    "weaponType": "Shield",
+    "series": "Naofumi",
+    "formId": "naofumi_form_leaf_shield",
+    "parentNodeId": "naofumi_small_shield_root",
+    "convertible": false,
+    "requirementIds": [
+      "req_absorb_5_leaf_herbs"
+    ],
+    "abilityIds": [
+      "abl_leaf_vitality_passive"
+    ],
+    "effectIds": [],
+    "state": "locked"
+  },
+  {
+    "nodeId": "naofumi_light_metal_shield_node",
+    "weaponType": "Shield",
+    "series": "Naofumi",
+    "formId": "naofumi_form_light_metal_shield",
+    "parentNodeId": "naofumi_small_shield_root",
+    "convertible": false,
+    "requirementIds": [
+      "req_absorb_5_iron_ores"
+    ],
+    "abilityIds": [
+      "abl_light_guard_equip"
+    ],
+    "effectIds": [],
+    "state": "locked"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "requirementId": "req_absorb_5_leaf_herbs",
+    "type": "ItemAbsorb",
+    "target": "MountainFlower01",
+    "amountRequired": 5
+  },
+  {
+    "requirementId": "req_absorb_5_iron_ores",
+    "type": "ItemAbsorb",
+    "target": "OreIron",
+    "amountRequired": 5
+  }
+]

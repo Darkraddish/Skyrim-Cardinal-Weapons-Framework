@@ -1,0 +1,8 @@
+[
+  {
+    "requirementId": "req_kill_10_wolves",
+    "type": "KillCount",
+    "target": "Wolf",
+    "amountRequired": 10
+  }
+]

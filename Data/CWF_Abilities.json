@@ -1,0 +1,8 @@
+[
+  {
+    "abilityId": "abl_iron_will_passive",
+    "category": "Passive",
+    "scope": "Permanent",
+    "magicEffectFormId": "0x000801XX"
+  }
+]

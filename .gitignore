@@ -1,5 +1,6 @@
 # Build output & binaries
 build/
+SKSEPlugin/build/
 out/
 bin/
 obj/
@@ -47,7 +48,3 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 .DS_Store
-
-# Allow prebuilt binary DLL
-!SKSE/Plugins/CWFramework.dll
-!build/Release/CWFramework.dll

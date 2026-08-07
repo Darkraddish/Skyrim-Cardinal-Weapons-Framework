@@ -1,0 +1,14 @@
+[
+  {
+    "abilityId": "abl_leaf_vitality_passive",
+    "category": "Passive",
+    "scope": "Permanent",
+    "magicEffectFormId": "0x00080101"
+  },
+  {
+    "abilityId": "abl_light_guard_equip",
+    "category": "Equip",
+    "scope": "FormBound",
+    "magicEffectFormId": "0x00080102"
+  }
+]

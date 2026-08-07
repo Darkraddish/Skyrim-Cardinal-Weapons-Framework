@@ -1,0 +1,16 @@
+[
+  {
+    "nodeId": "shield_naofumi_start",
+    "weaponType": "Shield",
+    "series": "Naofumi",
+    "formId": "shield_small_iron",
+    "parentNodeId": null,
+    "convertible": false,
+    "requirementIds": [
+      "req_kill_10_wolves"
+    ],
+    "abilityIds": [],
+    "effectIds": [],
+    "state": "locked"
+  }
+]

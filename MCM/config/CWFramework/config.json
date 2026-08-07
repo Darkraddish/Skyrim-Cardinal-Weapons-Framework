@@ -1,0 +1,18 @@
+{
+  "modName": "Cardinal Weapon Framework",
+  "minMCMVersion": 1,
+  "pages": [
+    {
+      "pageName": "General",
+      "options": [
+        {
+          "id": "menu_hotkey",
+          "text": "Menu Hotkey",
+          "type": "keymap",
+          "value": 24,
+          "help": "Key used to toggle the Legendary Weapon Progression Web interface."
+        }
+      ]
+    }
+  ]
+}

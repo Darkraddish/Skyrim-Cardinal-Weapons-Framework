@@ -15,6 +15,57 @@
 #define CW_HAS_COMMONLIB 0
 #endif
 
+// SKSE Plugin Version Metadata Export required by skse64_loader
+#if CW_HAS_COMMONLIB
+extern "C" __declspec(dllexport) constinit SKSE::PluginVersionData SKSEPlugin_Version = []() {
+    SKSE::PluginVersionData v;
+    v.PluginVersion(1);
+    v.PluginName("Cardinal Weapon Framework");
+    v.AuthorName("Darkraddish");
+    v.UsesAddressLibrary(true);
+    v.UsesUpdatedStructs(true);
+    v.CompatibleVersions({ SKSE::RUNTIME_SSE_LATEST });
+    return v;
+}();
+#else
+struct SKSEPluginVersionData
+{
+    enum { kVersion = 1 };
+    enum
+    {
+        kVersionIndependent_AddressLibraryPostAE = 1 << 0,
+        kVersionIndependent_Signatures = 1 << 1,
+        kVersionIndependent_StructsPost629 = 1 << 2,
+    };
+    enum
+    {
+        kVersionIndependentEx_NoStructUse = 1 << 0,
+    };
+
+    uint32_t dataVersion{ kVersion };
+    uint32_t pluginVersion{ 1 };
+    char name[256]{ "Cardinal Weapon Framework" };
+    char author[256]{ "Darkraddish" };
+    char supportEmail[252]{ "" };
+    uint32_t versionIndependenceEx{ 0 };
+    uint32_t versionIndependence{ kVersionIndependent_AddressLibraryPostAE | kVersionIndependent_StructsPost629 };
+    uint32_t compatibleVersions[16]{ 0x01064920, 0 };
+    uint32_t seVersionRequired{ 0 };
+};
+
+extern "C" __declspec(dllexport) constinit SKSEPluginVersionData SKSEPlugin_Version = {
+    SKSEPluginVersionData::kVersion,
+    1,
+    "Cardinal Weapon Framework",
+    "Darkraddish",
+    "",
+    0,
+    SKSEPluginVersionData::kVersionIndependent_AddressLibraryPostAE | SKSEPluginVersionData::kVersionIndependent_StructsPost629,
+    { 0x01064920, 0 },
+    0
+};
+#endif
+
 namespace
 {
     std::atomic<bool> g_running{ true };
